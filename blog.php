@@ -1,3 +1,4 @@
+<?php include 'proses/koneksi.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,7 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <!--<< Title >>-->
-   <title>UKM POLICY ~ KBMPNL</title>
+   <title>Blog - UKM POLICY ~ KBMPNL</title>
    <!--<< Favcion >>-->
    <link rel="shortcut icon" href="assets/img/logo/favicon.png">
    <!--<< Bootstrap min.css >>-->
@@ -55,7 +56,7 @@
                      </a>
                   </li>
                   <li>
-                     <a href="blog.html">
+                     <a href="blog.html" class="base">
                         Blog
                      </a>
                   </li>
@@ -92,26 +93,27 @@
             </div>
          </div>
       </header>
-
-
       <!--<< Header v-1 >>-->
       <div class="container pt-120 pb-120">
-         <a href="blog.html" class="fw-500 cmn--btn align-items-center gap-2">
-            <span>
-               <i class="bi bi-arrow-left fz-20"></i>
-            </span>
-            <span class="get__text">
-               Kembali
-            </span>
-
-         </a>
          <div class="row g-4 justify-content-center">
             <div class="col-lg-8">
                <div class="breadcrumnd__wrap text-center">
                   <h1>
-                     Brand design that helps the
-                     company grow
+                     ARTICLES
                   </h1>
+                  <ul class="breakcrumnd__cont justify-content-center">
+                     <li>
+                        <a href="index.html">
+                           Home
+                        </a>
+                     </li>
+                     <li class="white">
+                        /
+                     </li>
+                     <li class="base">
+                        Article
+                     </li>
+                  </ul>
                </div>
             </div>
          </div>
@@ -123,175 +125,221 @@
    <section class="blog__bsection pb-120">
       <div class="container">
          <div class="row g-4">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                <div class="blog__bleft__wrapper">
-                  <div class="blog__bitem" data-aos="fade-up" data-aos-duration="1000">
-                     <a href="#0" class="thumb">
-                        <img src="assets/img/blog/bblog1.png" alt="img">
-                     </a>
-                     <div class="content__two">
-                        <div class="text__box mb-30" data-aos="fade-up" data-aos-duration="1400">
-                           <span class="text__de">
-                              By: admin / Lifestyle / Posted on September 19, 2023 / Comments: 0
+
+                  <?php
+                  $data = array();
+                  $kueri = mysqli_query($conn, "SELECT articles.*, sources.*, users.*, categories.* FROM articles JOIN sources ON articles.thumbnail = sources.id JOIN users ON articles.creator_id = users.id JOIN categories ON articles.category_id = categories.id;");
+                  $cek = mysqli_num_rows($kueri);
+                  while ($row = mysqli_fetch_array($kueri)) {
+                     $data[] = $row;
+                  }
+
+
+                  foreach ($data as $row) {
+                     ?>
+                     <!-- BLOG ITEM -->
+                     <div class="blog__bitem mb__cus50" data-aos="fade-up" data-aos-duration="1000">
+                        <a href="blog-details.php?blog=<?php echo $row['slug'] ?>" class="thumb">
+                           <img src="https://ukmpolicy.org/uploads/<?php echo $row['path'] ?>" alt="img">
+                        </a>
+                        <div class="content">
+                           <span class="bdate d-flex align-items-center gap-1 ptext fz-16">
+                              <span class="text-uppercase text-white">
+                                 #
+                                 <?php echo $row['name'] ?>
+                              </span>
+                              .
+                              <?php echo $row['created_at'] ?>
                            </span>
-                           <p class="fz-16 pra ttext__one">
-                              There are many variations of passages of Lorem Ipsum available, but the majority have
-                              suffered alteration in some form, by injected humour, or randomised words which don't look
-                              even slightly believable. If you are going to use a Lorem Ipsum, you need to be sure there
-                              isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum the Internet
-                              tend to repeat predefined chunks as necessary,
+                           <h3>
+                              <a href="blog-details.html">
+                                 <?php echo $row['title'] ?>
+                              </a>
+                           </h3>
+                           <p class="fz-16 ptext">
+                              <?php echo $row['slug'] ?>
                            </p>
-                           <p class="fz-16 pra">
-                              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                              consequuntur magni neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                              adipisci velit, sed quia non numquam eius modi tempora incidunts ut labore et dolore
-                              magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem
-                              the corporis suscipit laboriosam, nisi ut aliquid
-                           </p>
-                        </div>
-                        <div class="quite__box mb-30">
-                           <img src="assets/img/blog/straight-quotes.png" alt="img">
-                           <p>
-                              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                              consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
-                              est, adipisci velit, sed quia non numquam
-                           </p>
-                           <a href="#0">
-                              David Kingston
+                           <a href="blog-details.php?blog=<?php echo $row['slug'] ?>"
+                              class="d-flex justify-content-center fw-500 cmn--btn align-items-center gap-2">
+                              <span class="get__text">
+                                 Selengkapnya
+                              </span>
+                              <span>
+                                 <i class="bi bi-arrow-right"></i>
+                              </span>
                            </a>
                         </div>
-                        <p class="fz-16 pra ttext__one mb__cus60">
-                           Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                           consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
-                           est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam
-                           eius modi tempora incidunt ut labore et dolore magnam aliquam minima veniam, quis nostrum
-                           exercitationem ullam corporis suscipit laboriosam,
-                        </p>
-                        <h3 class="white mb-30">
-                           Matias is the only theme you will ever need
-                        </h3>
-                        <div class="thumb mb-30">
-                           <img src="assets/img/blog/blog-detailsb2.png" alt="img">
-                        </div>
-                        <p class="fz-16 pra ttext__one mb-30">
-                           On the other hand, we denounce with righteous indignation and dislike men who are so beguiled
-                           and demoralized by the charms of pleasure of the moment, so blinded by desire, that they
-                           cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those
-                           who fail in their duty through weakness of will, which is the same as from these cases are
-                           perfectly simple and easy to distinguish. In a free hour,
-                        </p>
-                        <div class="text__box mb-30" data-aos="fade-up" data-aos-duration="1600">
-                           <ul class="challenge__list">
-                              <li>
-                                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                 nulla pariatur.
-                              </li>
-                              <li>
-                                 Nor again is there anyone who loves or pursues or desires to obtain pain of itself,
-                                 because it is pain,
-                              </li>
-                              <li>
-                                 On the other hand, we denounce with righteous indignation and dislike
-                              </li>
-                           </ul>
-                        </div>
-                        <p class="fz-16 pra ttext__one mb-30">
-                           Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                           consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
-                           est, qui dolorem
-                        </p>
                      </div>
-                     <div class="post__in cmn__bg mb__cus60">
-                        <div class="post__left">
-                           <span class="fz-20 fw-500 white">
-                              Posted in :
-                           </span>
+                     <!-- BLOG ITEM -->
+                  <?php } ?>
+
+
+                  <!-- PAGINATION -->
+                  <div class="pagination__box cmn__bg">
+                     <ul class="pagi">
+                        <li>
+                           <a href="#0">
+                              1
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#0">
+                              2
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#0">
+                              3
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#0">
+                              <i class="bi bi-chevron-right"></i>
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+                  <!-- PAGINATION -->
+               </div>
+            </div>
+            <div class="col-lg-4">
+               <div class="blog__bright__bar">
+                  <!-- SEARCH -->
+                  <div class="scope__item mb__cus60">
+                     <h4 class="scope__title">
+                        Serach
+                     </h4>
+                     <form action="#0" class="d-flex align-content-center justify-content-between">
+                        <input type="text" placeholder="Search">
+                        <button type="submit">
+                           <i class="bi bi-search"></i>
+                        </button>
+                     </form>
+                  </div>
+                  <!-- SEARCH -->
+
+                  <!-- RECENT -->
+                  <div class="scope__item mb__cus60">
+                     <h4 class="scope__title">
+                        Recent Post
+                     </h4>
+                     <ul class="recent__post">
+
+                        <?php foreach ($data as $row) { ?>
+                           <li>
+                              <a href="blog-details.php?blog=<?php echo $row['slug'] ?>" class="recent__innter">
+                                 <img src="https://ukmpolicy.org/uploads/<?php echo $row['path'] ?>" alt="img"
+                                    style="width:100px; height: 100px;  object-fit: cover;">
+                                 <div class="cont__box">
+                                    <span class="retitle">
+                                       <?php echo $row['title'] ?>
+                                    </span>
+                                    <span class="base fz-16 d-flex align-items-center gap-2">
+                                       <i class="bi bi-clock"></i>
+                                       <?php echo $row['created_at'] ?>
+                                    </span>
+                                 </div>
+                              </a>
+                           </li>
+                        <?php } ?>
+
+                     </ul>
+                  </div>
+                  <!-- RECENT -->
+                  <!-- KATEGORI -->
+                  <div class="scope__item mb__cus60 position-relative">
+                     <h4 class="scope__title">
+                        Categories
+                     </h4>
+                     <ul class="category">
+                        <?php $kategori = mysqli_query($conn, "SELECT * FROM categories");
+                        while ($row = mysqli_fetch_array($kategori)) { ?>
+                           <li>
+                              <a href="#0" class="d-flex align-items-center justify-content-between">
+                                 <span class="fz-18 ptext">
+                                    <?php echo $row['name'] ?>
+                                 </span>
+                                 <span class="arrow">
+                                    <i class="bi bi-chevron-right"></i>
+                                 </span>
+                              </a>
+                           </li>
+                        <?php } ?>
+
+                     </ul>
+                  </div>
+                  <!-- KATEGORI -->
+                  <!--    <div class="scope__item">
+                     <h4 class="scope__title">
+                        Tag
+                     </h4>
+                     <ul class="tags">
+                        <li>
                            <a href="#0">
                               Business
                            </a>
+                        </li>
+                        <li>
                            <a href="#0">
                               Digital
                            </a>
-                        </div>
-                        <div class="post__right">
-                           <span class="fz-20 fw-500 white">
-                              Share :
-                           </span>
-                           <ul class="social-cus d-flex align-items-center">
-                              <li>
-                                 <a href="#0">
-                                    <i class="bi bi-facebook"></i>
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="#0">
-                                    <i class="bi bi-twitter"></i>
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="#0">
-                                    <i class="bi bi-instagram"></i>
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="#0">
-                                    <i class="bi bi-linkedin"></i>
-                                 </a>
-                              </li>
-                           </ul>
-                        </div>
-                     </div>
-                     <div class="replay__box cmn__bg">
-                        <h3>
-                           Leave a Reply
-                        </h3>
-                        <p>
-                           Your email address will not be published. Required fields are marked *
-                        </p>
-                        <form action="#" class="row g-4">
-                           <div class="col-lg-6">
-                              <input type="text" placeholder="Name">
-                           </div>
-                           <div class="col-lg-6">
-                              <input type="email" placeholder="Eamil">
-                           </div>
-                           <div class="col-lg-12">
-                              <textarea name="comment" rows="5" placeholder="Write Comments"></textarea>
-                           </div>
-                           <a href="contact.html" class="d-flex fw-500 cmn--btn align-items-center gap-2">
-                              <span class="get__text">
-                                 Submit Comment
-                              </span>
-                              <span>
-                                 <i class="bi bi-arrow-right fz-20"></i>
-                              </span>
+                        </li>
+                        <li>
+                           <a href="#0">
+                              Audio Post
                            </a>
-                        </form>
-                     </div>
-                  </div>
+                        </li>
+                        <li>
+                           <a href="#0">
+                              Gallery Post
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#0">
+                              Marketing
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#0">
+                              Agency
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#0">
+                              Graphic
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#0">
+                              Web Development
+                           </a>
+                        </li>
+                     </ul>
+                  </div> -->
                </div>
             </div>
-
          </div>
       </div>
    </section>
    <!--<< blog >>-->
 
    <!--<< Footer >>-->
-   <footer class="footer__section" id="down">
-      <!--  <div class="container">
+   <footer class="footer__section">
+      <div class="container">
          <div class="footer__top pt-120 pb-120">
-            <div class="fl" data-aos="fade-up" data-aos-duration="1000">
-               Get In Touch
-            </div>
+            <!-- <div class="fl" data-aos="fade-up" data-aos-duration="1000">
+               Stay Tuned
+            </div> -->
             <div class="row g-4">
                <div class="col-lg-6">
                   <div class="get__content">
                      <p>
-                        Hello, I’m David Matias, Website & User Interface
-                        Designer based in London.
+                        <!--    Hello, I’m David Matias, Website & User Interface
+                        Designer based in London. -->
                      </p>
-                     <a href="#0">davidmatias333@gmail.com</a>
+                     <a href="mailto:policy.lhokseumawe@gmail.com">policy.lhokseumawe@gmail.com</a>
                   </div>
                </div>
                <div class="col-lg-6">
@@ -311,22 +359,17 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                            <a href="#0" class="social__footer">
-                              Dribble
+                              TikTok
                               <i class="bi bi-arrow-right"></i>
                            </a>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                           <a href="#0" class="social__footer">
-                              Webflow
-                              <i class="bi bi-arrow-right"></i>
-                           </a>
-                        </div>
+
                      </div>
                   </div>
                </div>
             </div>
          </div>
-      </div> -->
+      </div>
       <div class="footer__bottom cmn__bg">
          <div class="container">
             <div class="copyright">
@@ -364,8 +407,9 @@
             <img src="assets/img/logo/logo.png" alt="img">
          </a>
          <p>
-            Neque porro quisquam est, qui dolorem ipsum quia dolor sit consectetur, aliquam quaerats voluptatem. Ut enim
-            ad minima veniam, exercitationem laboriosam, nisi ut aliquid ex ea autem velit esse quam nihil
+            Berpartisipasi dan berperan aktif dalam mengembangkan jaringan kerjasama dengan lembaga Politeknik Negeri
+            Lhokseumawe ,
+            komunitas Linux dan Open Source lainnya lainnya, Perguruan tinggi dan Pemerintah Daerah maupun Pusat.
          </p>
          <div class="sub__contact-left d-grid">
             <div class="sub__contac-item">
@@ -374,7 +418,7 @@
                      address
                   </span>
                   <span class="textp">
-                     Victoria Street London,
+                     Lhokseumawe,
                   </span>
                </div>
             </div>
@@ -384,7 +428,7 @@
                      email
                   </span>
                   <a href="javascript:void(0)" class="textp">
-                     matias999@.com
+                     policy.lhokseumawe@gmail.com
                   </a>
                </div>
             </div>
@@ -428,7 +472,7 @@
                <i class="bi bi-chevron-right"></i>
             </span>
             <span class="get__text">
-               Let's Talk
+               Login
             </span>
          </a>
       </div>

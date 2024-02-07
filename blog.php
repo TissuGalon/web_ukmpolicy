@@ -40,6 +40,34 @@
    <!-- HEADER -->
 
 
+   <!-- BANNER -->
+   <div class="container pt-120 pb-120">
+      <div class="row g-4 justify-content-center">
+         <div class="col-lg-8">
+            <div class="breadcrumnd__wrap text-center">
+               <h1>
+                  ARTICLES
+               </h1>
+               <ul class="breakcrumnd__cont justify-content-center">
+                  <li>
+                     <a href="index.html">
+                        Home
+                     </a>
+                  </li>
+                  <li class="white">
+                     /
+                  </li>
+                  <li class="base">
+                     Article
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- BANNER -->
+
+
    <!--<< blog >>-->
    <section class="blog__bsection pb-120">
       <div class="container">
@@ -49,7 +77,8 @@
 
                   <?php
                   $data = array();
-                  $kueri = mysqli_query($conn, "SELECT articles.*, sources.*, users.*, categories.* FROM articles JOIN sources ON articles.thumbnail = sources.id JOIN users ON articles.creator_id = users.id JOIN categories ON articles.category_id = categories.id;");
+                  /* $kueri = mysqli_query($conn, "SELECT articles.*, sources.*, users.*, categories.* FROM articles JOIN sources ON articles.thumbnail = sources.id JOIN users ON articles.creator_id = users.id JOIN categories ON articles.category_id = categories.id;"); */
+                  $kueri = mysqli_query($conn, "SELECT  articles.*, categories.* FROM articles JOIN categories ON articles.category_id = categories.id WHERE articles.is_public = 1");
                   $cek = mysqli_num_rows($kueri);
                   while ($row = mysqli_fetch_array($kueri)) {
                      $data[] = $row;
@@ -60,8 +89,8 @@
                      ?>
                      <!-- BLOG ITEM -->
                      <div class="blog__bitem mb__cus50" data-aos="fade-up" data-aos-duration="1000">
-                        <a href="blog-details.php?blog=<?php echo $row['slug'] ?>" class="thumb">
-                           <img src="https://ukmpolicy.org/uploads/<?php echo $row['path'] ?>" alt="img">
+                        <a href="blog-details?blog=<?php echo $row['slug'] ?>" class="thumb">
+                           <img src="https://ukmpolicy.org/uploads/<?php echo $row['thumbnail'] ?>" alt="img">
                         </a>
                         <div class="content">
                            <span class="bdate d-flex align-items-center gap-1 ptext fz-16">
@@ -73,14 +102,14 @@
                               <?php echo $row['created_at'] ?>
                            </span>
                            <h3>
-                              <a href="blog-details.html">
+                              <a href="blog-details?blog=<?php echo $row['slug'] ?>">
                                  <?php echo $row['title'] ?>
                               </a>
                            </h3>
                            <p class="fz-16 ptext">
                               <?php echo $row['slug'] ?>
                            </p>
-                           <a href="blog-details.php?blog=<?php echo $row['slug'] ?>"
+                           <a href="blog-details?blog=<?php echo $row['slug'] ?>"
                               class="d-flex justify-content-center fw-500 cmn--btn align-items-center gap-2">
                               <span class="get__text">
                                  Selengkapnya
@@ -149,7 +178,7 @@
                         <?php foreach ($data as $row) { ?>
                            <li>
                               <a href="blog-details.php?blog=<?php echo $row['slug'] ?>" class="recent__innter">
-                                 <img src="https://ukmpolicy.org/uploads/<?php echo $row['path'] ?>" alt="img"
+                                 <img src="https://ukmpolicy.org/uploads/<?php echo $row['thumbnail'] ?>" alt="img"
                                     style="width:100px; height: 100px;  object-fit: cover;">
                                  <div class="cont__box">
                                     <span class="retitle">

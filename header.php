@@ -64,6 +64,9 @@
     }
 </style>
 
+<?php $halaman = basename($_SERVER['PHP_SELF']); ?>
+
+
 <!--<< banner >>-->
 <section class="banner__section">
     <!--<< Header v-1 >>-->
@@ -78,33 +81,39 @@
                 <ul class="main-menu">
 
                     <li>
-                        <a href="index.php?x=home" <?php if (!isset($_GET['x']) || (isset($_GET['x']) && $x == 'home')) {
+
+
+                        <a href="home" <?php if ($halaman == 'index.php' || $halaman == 'home.php') {
                             echo 'class="base"';
                         } ?>>
                             Home
                         </a>
                     </li>
                     <li>
-                        <a href="index.php?x=blog" <?php if (isset($_GET['x']) && $x == 'blog') {
+                        <a href="blog" <?php if ($halaman == 'blog.php') {
                             echo 'class="base"';
                         } ?>>
                             Blog
                         </a>
                     </li>
                     <li>
-                        <a href="index.php?x=documentation" <?php if (isset($_GET['x']) && $x == 'documentation') {
+                        <a href="documentation" <?php if ($halaman == 'documentation.php') {
                             echo 'class="base"';
                         } ?>>
+
                             Documentation
                         </a>
                     </li>
-                    <li>
-                        <a href="index.php?x=open-recruitment" <?php if (isset($_GET['x']) && $x == 'open-recruitment') {
-                            echo 'class="base"';
-                        } ?>>
-                            OPEN RECRUITMENT
-                        </a>
-                    </li>
+
+                    <?php if ($or_setting_status == '1' || $buka_sesuai_jadwal) { ?>
+                        <li>
+                            <a href="open-recruitment" <?php if ($halaman == 'open-recruitment.php') {
+                                echo 'class="base"';
+                            } ?>>
+                                OPEN RECRUITMENT
+                            </a>
+                        </li>
+                    <?php } ?>
 
                 </ul>
 
@@ -175,9 +184,108 @@
     </header>
     <!--<< Header v-1 >>-->
 
-    <!-- BANNER -->
-    <?php include 'banner.php'; ?>
-    <!-- BANNER -->
+    <?php if ($halaman == 'index.php' || $halaman == 'home.php') { ?>
+        <!-- BANNER -->
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="banner__content">
+                        <!--  <a href="#0" class="bn__currently">
+                     <span class="d-block">
+                        Currently available for freelance
+                     </span>
+                     <span class="d-flex gap-4 align-items-center">
+                        worldwide
+                        <i class="bi bi-arrow-up-right"></i>
+                     </span>
+                  </a> -->
+                        <h1>
+                            <!-- <span class="hone"> UKM</span> -->
+                            <span class="d-block designers" data-text="POLYTECHNIC LINUX COMMUNITY">POLYTECHNIC
+                                LINUX COMMUNITY</span>
+                        </h1>
+                        <div class="video__area">
+                            <img src="assets/img/banner/bn-arrow.png" class="vid__arrow" alt="img">
+                            <a href="#" class="video__80 video-btn">
+                                <i class="bi bi-play-fill"></i>
+                            </a>
+                            <span class="proces">
+                                About Us
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="banner__thumb" data-aos="fade-up-right" data-aos-duration="300">
+                        <img src="assets/img/banner/banner-man.png" alt="man-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="banner__leftinfo">
+            <div class="left__infomobile">
+                <a href="#0">
+                    <img src="assets/img/banner/dial.png" alt="img">
+                </a>
+                <a href="#0">
+                    <!--  (+02)-574-328-301 -->
+                </a>
+            </div>
+            <div class="right__infoscroll">
+                <a href="#down" class="scroll">
+                    scroll down
+                </a>
+                <a href="#down" class="scroll__bar">
+                    <img src="assets/img/banner/scroll-down.png" alt="img">
+                </a>
+            </div>
+        </div>
+        <div class="banner__rightinfo">
+            <div class="right__infoscroll">
+                <a href="#0" class="scroll">
+                    Follow Us
+                </a>
+                <a href="#0" class="scroll__bar">
+                    <img src="assets/img/banner/scroll-down.png" alt="img">
+                </a>
+            </div>
+            <div class="banner__xlsocial">
+                <ul class="banner__soci d-grid justify-content-center">
+                    <!--  <li>
+                    <a href="#0">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                </li> -->
+                    <li>
+                        <a href="https://www.tiktok.com/@ukmpolicypnl" target="_blank">
+                            <i class="bi bi-tiktok"></i>
+                        </a>
+                    </li>
+                    <!--  <li>
+                    <a href="#0">
+                        <i class="bi bi-twitter"></i>
+                    </a>
+                </li> -->
+                    <li>
+                        <a href="https://www.instagram.com/ukmpolicy.kbmpnl/" target="_blank">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                    </li>
+                    <!--  <li>
+                    <a href="#0">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                </li> -->
+                </ul>
+            </div>
+        </div>
+        <!-- BANNER -->
+    <?php } ?>
 
 </section>
 <!--<< banner >>-->

@@ -1,3 +1,5 @@
+<?php include 'proses/koneksi.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,6 +39,22 @@
     <!-- HEADER -->
     <?php include 'header.php'; ?>
     <!-- HEADER -->
+
+
+    <!-- BANNER -->
+    <div class="container pt-60 pb-60">
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-8">
+                <div class="breadcrumnd__wrap text-center">
+                    <h1>
+                        Formulir Pendaftaran
+                    </h1>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BANNER -->
 
 
     <!--<< Contact >>-->

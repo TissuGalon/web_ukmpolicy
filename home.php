@@ -1,3 +1,4 @@
+<?php include 'proses/koneksi.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,44 +75,117 @@
     <!--<< text slide v1 >>-->
     <div class="my-5"></div>
 
+
+
     <?php
-    $q_cek_or = mysqli_query($conn, "SELECT * FROM settings");
-    $settings = array();
 
-    while ($row = mysqli_fetch_assoc($q_cek_or)) {
-        $settings[$row['key']] = array(
-            'id' => $row['id'],
-            'key' => $row['key'],
-            'value' => $row['value'],
-            'created_at' => $row['created_at'],
-            'updated_at' => $row['updated_at']
-        );
-    }
+    /* KUERI DI FILE KONEKSI.PHP */
 
-    echo $settings['key']['value']; // Mengakses nilai 'value' dari kunci 'key'
-    ?>
+    if ($or_setting_status == '1' || $buka_sesuai_jadwal) { ?>
 
-
-    <div class="container  pt-60 pb-30 " style="border-radius:16px; background-color: #EBE2DB;  background-image: url('images/or-pattern.png');
+        <div class="container  pt-60 pb-30 " style="border-radius:16px; background-color: #EBE2DB;  background-image: url('images/or-pattern.png');
             background-repeat: repeat;
             background-size: cover;">
-        <div class="personal__head text-center">
-            <!-- <img src="assets/img/about/section-star.png" class="mb-30" alt="star"> -->
-            <h3 class="base">SEDANG DIBUKA</h3>
-            <p class="descrp text-dark">
-                OPEN RECRUITMENT
-            </p>
-            <h6 class="text-dark">Daftarkan dirimu sekarang.</h6>
-            <a href="index.php?x=open-recruitment" class=" border-0 fw-500 cmn--btn  gap-2 mt-30 ">
-                <span class="get__text text-light">
-                    DAFTAR SEKARANG
-                </span>
-                <span>
-                    <i class="bi bi-arrow-right fz-20 text-light"></i>
-                </span>
-            </a>
+            <div class="personal__head text-center">
+                <!-- <img src="assets/img/about/section-star.png" class="mb-30" alt="star"> -->
+                <h3 class="base" id="coming-soon">
+                    <?php if ($or_setting_status == '1') {
+                        echo "SEDANG DIBUKA";
+                    } else {
+                        echo "SEGERA DIBUKA";
+                    } ?>
+                </h3>
+                <p class="descrp text-dark">
+                    OPEN RECRUITMENT
+                </p>
+                <h6 class="text-dark">Daftarkan dirimu segera.</h6>
+
+
+                <?php if ($or_setting_status == '0') { ?>
+
+                    <div id="tanggal-or">
+                        <h4 class="text-dark mt-2">
+                            <i class="bi bi-calendar fz-20 text-dark"></i>
+                            <?php echo date('d-m-Y', strtotime($or_setting_start)); ?>
+                        </h4>
+                    </div>
+
+                    <div class="mt-5"></div>
+
+                    <h1 class="base " id="countdown">
+                        <?php echo $or_setting_start; ?>
+                    </h1>
+                <?php } ?>
+
+                <button id="btn-or" onclick="window.location.href = 'open-recruitment';"
+                    class=" border-0 fw-500 cmn--btn  gap-2 mt-30 ">
+                    <span class="get__text text-light">
+                        DAFTAR SEKARANG
+                    </span>
+                    <span>
+                        <i class="bi bi-arrow-right fz-20 text-light"></i>
+                    </span>
+                </button>
+
+            </div>
         </div>
-    </div>
+
+    <?php } ?>
+
+    <!-- SCRIPT COUNTDOWN -->
+    <?php if ($or_setting_status == '0') { ?>
+        <script>
+
+            document.getElementById('btn-or').style.display = 'none';
+
+            function parseDateString(dateString) {
+                var parts = dateString.split(' '); // Memisahkan tanggal dan waktu
+                var dateParts = parts[0].split('-'); // Memisahkan tanggal
+                var timeParts = parts[1].split(':'); // Memisahkan waktu
+
+                // Mendapatkan komponen tanggal
+                var day = parseInt(dateParts[0], 10);
+                var month = parseInt(dateParts[1], 10) - 1; // Perlu dikurangi 1 karena indeks bulan dimulai dari 0
+                var year = parseInt(dateParts[2], 10);
+
+                // Mendapatkan komponen waktu
+                var hours = parseInt(timeParts[0], 10);
+                var minutes = parseInt(timeParts[1], 10);
+                var seconds = parseInt(timeParts[2], 10);
+
+                // Membuat objek Date dengan komponen tanggal dan waktu yang diperoleh
+                return new Date(year, month, day, hours, minutes, seconds);
+            }
+
+            var endDate = parseDateString('<?php echo $or_setting_start ?>');
+
+            function updateCountdown() {
+                var now = new Date();
+                var distance = endDate - now;
+
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+
+                document.getElementById('countdown').innerHTML = days + 'h ' + hours + 'j ' + minutes + 'm ' + seconds + 'd ';
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    document.getElementById('coming-soon').innerHTML = 'SEDANG DIBUKA';
+                    document.getElementById('tanggal-or').style.display = 'none';
+                    document.getElementById('countdown').innerHTML = null;
+                    document.getElementById('btn-or').style.display = '';
+                }
+            }
+
+            var interval = setInterval(updateCountdown, 1000);
+
+        </script>
+    <?php } ?>
+    <!-- SCRIPT COUNTDOWN -->
+
 
     <!--<< about personal >>-->
     <section class="about__section pt-120 pb-120" id="about">
@@ -128,7 +202,9 @@
             <div class="singletab">
                 <ul class="tablinks">
                     <li class="nav-links active">
-                        <button class="tablink">MENGENAL LEBIH JAUH</button>
+                        <a href="home.php#visimisi" class="d-flex fw-500 cmn--btn text-dark <!-- tablink -->">MENGENAL
+                            LEBIH
+                            JAUH</a>
                     </li>
                     <!--    <li class="nav-links">
                   <button class="tablink">Experience</button>
@@ -140,7 +216,7 @@
                   <button class="tablink">Skills</button>
                </li> -->
                 </ul>
-                <div class="tabcontents">
+                <div class="tabcontents" id="#visimisi">
                     <div class="tabitem active">
                         <div class="about__v1wrap">
                             <div class="row g-4 align-items-lg-start align-items-center">
@@ -594,7 +670,7 @@
     </section>
     <!--<< service >>-->
 
-    <!--<< process >>-->
+    <!--<< STRUKTURAL >>-->
     <section class="process__section pt-120 pb-120">
         <div class="container">
             <div class="project__head text-center">
@@ -604,165 +680,47 @@
 
             </div>
             <div class="row g-4 d-flex justify-content-center">
-                <!-- ITEM -->
-                <div class="col-lg-4 col-md-6 col-sm-6" data-aos="flip-up" data-aos-duration="500">
-                    <div class="process__item text-center">
-                        <a href="#0" class="thumb rounded">
-                            <img src="https://ukmpolicy.org/uploads/17015057082346.jpg"
-                                style="width:100%;  aspect-ratio: 1 / 1; object-fit: cover; border-radius: 16px;"
-                                alt="img">
-                        </a>
-                        <h2 class="white mb-14 mt-24">
-                            Muhammad Rinaldy
-                        </h2>
-                        <h6 class="mb-30 pra fz-18 base">
-                            Ketua Umum
-                        </h6>
 
+                <?php
+                $count = 1;
+                $query_struktural = mysqli_query($conn, "SELECT positions.*, officers.*, members.* FROM positions JOIN officers ON positions.id = officers.position_id JOIN members ON officers.member_id = members.id WHERE positions.period_id = $active_period_id ORDER BY positions.index ASC;");
+
+                while ($struktural = mysqli_fetch_array($query_struktural)) { ?>
+
+                    <!-- ITEM -->
+                    <div class="col-lg-4 col-md-6 col-sm-6" data-aos="flip-up" data-aos-duration="500">
+                        <div class="process__item text-center">
+                            <a href="#0" class="thumb rounded">
+                                <img src="https://ukmpolicy.org/uploads/<?php echo $struktural['picture'] ?>"
+                                    style="width:100%;  aspect-ratio: 1 / 1; object-fit: cover; border-radius: 16px;"
+                                    alt="img">
+                            </a>
+                            <h2 class="white mb-14 mt-24">
+                                <?php echo $struktural['name'] ?>
+                            </h2>
+                            <h6 class="mb-30 pra fz-18 base">
+                                <?php echo $struktural[3] ?>
+                            </h6>
+
+                        </div>
                     </div>
-                </div>
-                <!-- ITEM -->
-                <!-- ITEM -->
-                <div class="col-lg-4 col-md-6 col-sm-6" data-aos="flip-up" data-aos-duration="500">
-                    <div class="process__item text-center">
-                        <a href="#0" class="thumb rounded">
-                            <img src="https://ukmpolicy.org/uploads/17015058007116.JPG"
-                                style="width:100%;  aspect-ratio: 1 / 1; object-fit: cover; border-radius: 16px;"
-                                alt="img">
-                        </a>
-                        <h2 class="white mb-14 mt-24">
-                            Muhammad Riza Wahyuddin
-                        </h2>
-                        <h6 class="mb-30 pra fz-18 base">
-                            Sekretaris Umum
-                        </h6>
+                    <!-- ITEM -->
 
-                    </div>
-                </div>
-                <!-- ITEM -->
-                <!-- ITEM -->
-                <div class="col-lg-4 col-md-6 col-sm-6" data-aos="flip-up" data-aos-duration="500">
-                    <div class="process__item text-center">
-                        <a href="#0" class="thumb rounded">
-                            <img src="https://ukmpolicy.org/uploads/17015060214012.jpeg"
-                                style="width:100%;  aspect-ratio: 1 / 1; object-fit: cover;  border-radius: 16px;"
-                                alt="img">
-                        </a>
-                        <h2 class="white mb-14 mt-24">
-                            Mitha Zahra
-                        </h2>
-                        <h6 class="mb-30 pra fz-18 base">
-                            Bendahara Umum
-                        </h6>
+                    <?php if ($count % 3 == 0) {
+                        echo '<hr class="base mt-25">';
+                    }
+                    $count++;
+                    ?>
 
-                    </div>
-                </div>
-                <!-- ITEM -->
-
-                <hr class="base mt-25">
-
-                <!-- ITEM -->
-                <div class="col-lg-4 col-md-6 col-sm-6" data-aos="flip-up" data-aos-duration="500">
-                    <div class="process__item text-center">
-                        <a href="#0" class="thumb rounded">
-                            <img src="images/pengurus/muhammad-kholis.jpeg"
-                                style="width:100%;  aspect-ratio: 1 / 1; object-fit: cover; border-radius: 16px;"
-                                alt="img" onerror="this.onerror=null; this.src='images/img-null.jpg';">
-                        </a>
-                        <h2 class="white mb-14 mt-24">
-                            Muhammad Kholis
-                        </h2>
-                        <h6 class="mb-30 pra fz-18 base">
-                            Ketua Pemrograman
-                        </h6>
-
-                    </div>
-                </div>
-                <!-- ITEM -->
-
-                <!-- ITEM -->
-                <div class="col-lg-4 col-md-6 col-sm-6" data-aos="flip-up" data-aos-duration="500">
-                    <div class="process__item text-center">
-                        <a href="#0" class="thumb rounded">
-                            <img src="images/pengurus/"
-                                style="width:100%;  aspect-ratio: 1 / 1; object-fit: cover; border-radius: 16px;"
-                                alt="img" onerror="this.onerror=null; this.src='images/img-null.jpg';">
-                        </a>
-                        <h2 class="white mb-14 mt-24">
-                            Ahmad Maulidi
-                        </h2>
-                        <h6 class="mb-30 pra fz-18 base">
-                            Ketua Jaringan
-                        </h6>
-
-                    </div>
-                </div>
-                <!-- ITEM -->
+                <?php }
+                ?>
 
 
-                <!-- ITEM -->
-                <div class="col-lg-4 col-md-6 col-sm-6" data-aos="flip-up" data-aos-duration="500">
-                    <div class="process__item text-center">
-                        <a href="#0" class="thumb rounded">
-                            <img src="https://ukmpolicy.org/uploads/17015070433784.png"
-                                style="width:100%;  aspect-ratio: 1 / 1; object-fit: cover; border-radius: 16px;"
-                                alt="img" onerror="this.onerror=null; this.src='images/img-null.jpg';">
-                        </a>
-                        <h2 class="white mb-14 mt-24">
-                            Dhynanti Amanda
-                        </h2>
-                        <h6 class="mb-30 pra fz-18 base">
-                            Ketua Multimedia
-                        </h6>
-
-                    </div>
-                </div>
-                <!-- ITEM -->
-
-
-                <!-- ITEM -->
-                <div class="col-lg-4 col-md-6 col-sm-6" data-aos="flip-up" data-aos-duration="500">
-                    <div class="process__item text-center">
-                        <a href="#0" class="thumb rounded">
-                            <img src=""
-                                style="width:100%;  aspect-ratio: 1 / 1; object-fit: cover; border-radius: 16px;"
-                                alt="img" onerror="this.onerror=null; this.src='images/img-null.jpg';">
-                        </a>
-                        <h2 class="white mb-14 mt-24">
-                            Muhammad Dhiauddin
-                        </h2>
-                        <h6 class="mb-30 pra fz-18 base">
-                            Ketua Pengembangan
-                        </h6>
-
-                    </div>
-                </div>
-                <!-- ITEM -->
-
-
-                <!-- ITEM -->
-                <div class="col-lg-4 col-md-6 col-sm-6" data-aos="flip-up" data-aos-duration="500">
-                    <div class="process__item text-center">
-                        <a href="#0" class="thumb rounded">
-                            <img src=""
-                                style="width:100%;  aspect-ratio: 1 / 1; object-fit: cover; border-radius: 16px;"
-                                alt="img" onerror="this.onerror=null; this.src='images/img-null.jpg';">
-                        </a>
-                        <h2 class="white mb-14 mt-24">
-                            Mutawakil Billah
-                        </h2>
-                        <h6 class="mb-30 pra fz-18 base">
-                            Ketua Kaderisasi
-                        </h6>
-
-                    </div>
-                </div>
-                <!-- ITEM -->
 
             </div>
         </div>
     </section>
-    <!--<< process >>-->
+    <!--<< STRUKTURAL >>-->
 
 
     <!-- FOOTER -->

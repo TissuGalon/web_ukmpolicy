@@ -1,2 +1,14 @@
+# Aktifkan mod_rewrite
 RewriteEngine On
-RewriteRule ^([a-zA-Z0-9]+)$ index.php?x=$1
+
+# Nonaktifkan penyembunyian ekstensi untuk file dan folder yang ada
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Redirect semua permintaan dengan ekstensi ke URL tanpa ekstensi
+RewriteCond %{THE_REQUEST} \.php [NC]
+RewriteRule ^(.+)\.php$ /$1 [L,R=301]
+
+# Mengonversi URL yang dipanggil tanpa ekstensi ke file dengan ekstensi
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+)$ $1.php [L]

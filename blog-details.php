@@ -97,12 +97,7 @@
 
       <?php
       $slug = $_GET['blog'];
-      $kueri = mysqli_query($conn, "SELECT articles.*, sources.*, users.*, categories.* 
-                               FROM articles  
-                               JOIN sources ON articles.thumbnail = sources.id 
-                               JOIN users ON articles.creator_id = users.id 
-                               JOIN categories ON articles.category_id = categories.id
-                               WHERE articles.slug = '$slug'");
+      $kueri = mysqli_query($conn, "SELECT  articles.*, categories.* FROM articles JOIN categories ON articles.category_id = categories.id WHERE articles.slug = '$slug'");
       $row = mysqli_fetch_array($kueri);
       ?>
 
@@ -137,7 +132,7 @@
                <div class="blog__bleft__wrapper">
                   <div class="blog__bitem" data-aos="fade-up" data-aos-duration="1000">
                      <a href="#0" class="thumb">
-                        <img src="https://ukmpolicy.org/uploads/<?php echo $row['path'] ?>"
+                        <img src="https://ukmpolicy.org/uploads/<?php echo $row['thumbnail'] ?>"
                            style="width:872; height: 450;" alt="img">
                      </a>
                      <!-- ISI -->

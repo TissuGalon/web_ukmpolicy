@@ -131,9 +131,9 @@
             <div class="col-lg-12">
                <div class="blog__bleft__wrapper">
                   <div class="blog__bitem" data-aos="fade-up" data-aos-duration="1000">
-                     <a href="#0" class="thumb">
+                     <a href="#0" class="thumb" style="border-radius: 16px;">
                         <img src="https://ukmpolicy.org/uploads/<?php echo $row['thumbnail'] ?>"
-                           style="width:872; height: 450;" alt="img">
+                           style="width:872; height: 450; " alt="img">
                      </a>
                      <!-- ISI -->
                      <div class="content__two">

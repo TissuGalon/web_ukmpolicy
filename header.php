@@ -74,14 +74,13 @@
         <div class="container">
             <div class="header-wrapper">
                 <div class="main__logo">
-                    <a href="index.html" class="logo">
+                    <a href="index" class="logo">
                         <img src="assets/img/logo/logo.png" alt="logo">
                     </a>
                 </div>
                 <ul class="main-menu">
 
                     <li>
-
 
                         <a href="home" <?php if ($halaman == 'index.php' || $halaman == 'home.php') {
                             echo 'class="base"';
@@ -115,43 +114,41 @@
                         </li>
                     <?php } ?>
 
+
                 </ul>
 
 
+                <div class="menu__components d-flex align-items-center">
 
-
-                <div class="menu__components d-flex align-items-center ">
-
-
+                    <!-- PROFIL -->
                     <?php if (isset($_SESSION['id_user'])) { ?>
                         <!-- USERNAME & AVATAR -->
-                        <div class="dropdown">
-                            <img src="https://ukmpolicy.org/images/default_picture.webp" alt="Avatar" class="avatar">
-                            <span class="username">John Doe</span>
+                        <div class="dropdown ">
+                            <img src="https://ukmpolicy.org/images/<?php echo $_SESSION['picture'] ?>"
+                                onerror="this.onerror=null; this.src='https://ukmpolicy.org/images/default_picture.webp'"
+                                alt="Avatar" class="avatar">
+
 
                             <div class="dropdown-content" aria-labelledby="navbar-picture">
-                                <a class="dropdown-item" href="https://ukmpolicy.org/u/hV6wf1-18554258/profile">
+                                <a class="dropdown-item" href="u/profile">
                                     <i class="bi bi-person fa-fw"></i> Profile
                                 </a>
-                                <a class="dropdown-item" href="https://ukmpolicy.org/u/notifications">
+                                <a class="dropdown-item" href=u/notifications">
                                     <i class="bi bi-bell fa-fw"></i> Notifications
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="bi bi-person-add fa-fw"></i> Open Recruitmen
                                 </a>
-                                <a class="dropdown-item" href="https://ukmpolicy.org/u/settings">
+                                <a class="dropdown-item" href="u/settings">
                                     <i class="bi bi-gear fa-fw"></i> Settings
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="https://ukmpolicy.org/manager">
+                                <a class="dropdown-item" href="manager/">
                                     <i class="bi bi-person-badge fa-fw"></i> Manager
                                 </a>
-                                <a class="dropdown-item" href="#"
-                                    onclick="event.preventDefault();document.querySelector('#logout').submit()">
+                                <a class="dropdown-item" href="logout">
                                     <i class="bi bi-box-arrow-right fa-fw"></i> Logout
                                 </a>
-                                <form action="https://ukmpolicy.org/logout" method="post" id="logout"><input type="hidden"
-                                        name="_token" value="NGm4D2dj3OhOxgG3ssKyMpo5WweiXqNMNeDEjVXX"></form>
                             </div>
                         </div>
                         <!-- USERNAME & AVATAR -->
@@ -167,6 +164,7 @@
                         </a>
                         <!-- LOGIN BTN -->
                     <?php } ?>
+                    <!-- PROFIL -->
 
                     <div class="header-bar d-lg-none">
                         <span></span>
@@ -180,6 +178,8 @@
 
 
             </div>
+
+
         </div>
     </header>
     <!--<< Header v-1 >>-->
@@ -290,12 +290,79 @@
 </section>
 <!--<< banner >>-->
 
+
+
 <!--<<  sub side bar custom >>-->
 <div class="subside__barmenu sub__contact">
     <div class="remove__click d-flex justify-content-center align-items-center">
         <i class="bi bi-x-lg"></i>
     </div>
     <div class="sub__contact__wrapper d-grid">
+
+        <?php if (isset($_SESSION['id_user'])) { ?>
+            <div class="">
+                <a href="#0" class="d-flex justify-content-center align-items-center py-3 rounded gap-2"
+                    style="background-color: #141410;">
+                    <img src="https://ukmpolicy.org/images/<?php echo $_SESSION['image'] ?>"
+                        onerror="this.onerror=null; this.src='https://ukmpolicy.org/images/default_picture.webp'"
+                        alt="Avatar" class="avatar">
+                    <span class="get__text text-light">
+                        <?php echo $_SESSION['name'] ?>
+                    </span>
+                </a>
+                <a href="logout?page=<?php echo $halaman; ?>"
+                    class="d-flex justify-content-center cmn--btn align-items-center gap-2 my-3">
+                    <span>
+                        <i class="bi bi-box-arrow-left"></i>
+                    </span>
+                    <span class="get__text">
+                        Logout
+                    </span>
+                </a>
+            </div>
+        <?php } else { ?>
+
+            <a href="login/login" class="d-flex justify-content-center cmn--btn align-items-center gap-2 my-3">
+                <span>
+                    <i class="bi bi-chevron-right"></i>
+                </span>
+                <span class="get__text">
+                    Login
+                </span>
+            </a>
+
+        <?php } ?>
+
+
+        <?php if (isset($_SESSION['id_user'])) { ?>
+            <div class="card" style="background-color: #141410;">
+                <div class="card-body p-2">
+                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="u/profile">
+                        <i class="bi bi-person fa-fw"></i> Profile
+                    </a>
+                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="u/notifications">
+                        <i class="bi bi-bell fa-fw"></i> Notifications
+                    </a>
+                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="open-recruitment">
+                        <i class="bi bi-person-add fa-fw"></i> Open Recruitmen
+                    </a>
+                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="u/settings">
+                        <i class="bi bi-gear fa-fw"></i> Settings
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="manager/">
+                        <i class="bi bi-person-badge fa-fw"></i> Manager
+                    </a>
+                </div>
+            </div>
+        <?php } ?>
+
+
+
+
+        <hr class="base my-4">
+
+
         <a href="index-2.html" class="side-logo">
             <img src="assets/img/logo/logo.png" alt="img">
         </a>
@@ -337,7 +404,7 @@
                 </div>
             </div> -->
         </div>
-        <div class="sub__contact-right mb-80 position-relative">
+        <div class="sub__contact-right mb-40 position-relative">
             <ul class="social d-flex gap-3">
                 <li>
                     <a href="https://www.tiktok.com/@ukmpolicypnl" target="_blank">
@@ -352,14 +419,8 @@
 
             </ul>
         </div>
-        <a href="#0" class="d-flex justify-content-center fw-500 cmn--btn align-items-center gap-2">
-            <span>
-                <i class="bi bi-chevron-right"></i>
-            </span>
-            <span class="get__text">
-                Login
-            </span>
-        </a>
+
+
     </div>
 </div>
 <!--<<  sub side bar custom >>-->

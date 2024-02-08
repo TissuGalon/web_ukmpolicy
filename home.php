@@ -202,7 +202,7 @@
             <div class="singletab">
                 <ul class="tablinks">
                     <li class="nav-links active">
-                        <a href="home.php#visimisi" class="d-flex fw-500 cmn--btn text-dark <!-- tablink -->">MENGENAL
+                        <a href="#visimisi" class="d-flex fw-500 cmn--btn text-dark <!-- tablink -->">MENGENAL
                             LEBIH
                             JAUH</a>
                     </li>
@@ -216,8 +216,8 @@
                   <button class="tablink">Skills</button>
                </li> -->
                 </ul>
-                <div class="tabcontents" id="#visimisi">
-                    <div class="tabitem active">
+                <div class="tabcontents">
+                    <div class="tabitem active" id="#visimisi">
                         <div class="about__v1wrap">
                             <div class="row g-4 align-items-lg-start align-items-center">
                                 <div class="col-lg-5">

@@ -160,7 +160,7 @@
                         <!-- /Logo -->
 
 
-                        <form id="formAuthentication" class="mb-3" action="proses/proses_login.php" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="proses_login.php" method="POST">
                             <div class="mb-3">
                                 <label for="email" class="form-label text-white">Email</label>
                                 <input type="text" class="form-control" id="email" name="email"

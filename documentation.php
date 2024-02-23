@@ -72,7 +72,7 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-8">
-                    <div class="blog__bleft__wrapper">
+                    <div class="blog__bleft__wrapper d-none">
 
                         <?php
                         $data = array();
@@ -152,7 +152,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="blog__bright__bar">
+                    <div class="blog__bright__bar ">
                         <!-- SEARCH -->
                         <div class="scope__item mb__cus60">
                             <h4 class="scope__title">
@@ -172,7 +172,7 @@
                             <h4 class="scope__title">
                                 Recent Post
                             </h4>
-                            <ul class="recent__post">
+                            <ul class="recent__post d-none">
 
                                 <?php foreach ($data as $row) { ?>
                                     <li>
@@ -200,7 +200,7 @@
                             <h4 class="scope__title">
                                 Categories
                             </h4>
-                            <ul class="category">
+                            <ul class="category d-none">
                                 <?php $kategori = mysqli_query($conn, "SELECT * FROM categories");
                                 while ($row = mysqli_fetch_array($kategori)) { ?>
                                     <li>

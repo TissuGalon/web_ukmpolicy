@@ -212,7 +212,7 @@
                             <span class="he1">
                                 Kuisioner
                             </span>
-                            <a href="kuisioner.html"
+                            <a href="kuisioner"
                                 class=" border-0 d-flex fw-500 cmn--btn align-items-center gap-2 mt-30 w-100">
                                 <span class="get__text">
                                     Isi Kuisioner

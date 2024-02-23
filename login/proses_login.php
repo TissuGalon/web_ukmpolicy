@@ -15,11 +15,11 @@ if ($row) {
         $_SESSION['username'] = $row['username'];
         $_SESSION['email'] = $row['email'];
         $_SESSION['picture'] = $row['picture'];
-        header('location:../index.php?login=berhasil');
+        header('location:../index?login=berhasil');
     } else {
-        header('location:login.php?login=gagal');
+        header('location:login?login=gagal');
     }
 } else {
-    header('location:login.php?login=gagal');
+    header('location:login?login=gagal');
 }
 ?>

@@ -5,6 +5,10 @@ if (!$conn) {
     die('Koneksi Error');
 }
 
+/* GET CURRENT PAGE FILENAME */
+$halaman = basename($_SERVER['PHP_SELF']);
+/* GET CURRENT PAGE FILENAME */
+
 
 /* GET PERIODE ID */
 $periods_query = mysqli_query($conn, "SELECT * FROM periods WHERE status = 1");

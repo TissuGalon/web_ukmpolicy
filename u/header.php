@@ -62,15 +62,9 @@
         background-color: #dc3545;
         color: white;
     }
-
-    .ellipsis {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
 </style>
 
-
+<?php $halaman = basename($_SERVER['PHP_SELF']); ?>
 
 
 <!--<< banner >>-->
@@ -80,29 +74,29 @@
         <div class="container">
             <div class="header-wrapper">
                 <div class="main__logo">
-                    <a href="index" class="logo">
-                        <img src="assets/img/logo/logo.png" alt="logo">
+                    <a href="../home" class="logo">
+                        <img src="../assets/img/logo/logo.png" alt="logo">
                     </a>
                 </div>
                 <ul class="main-menu">
 
                     <li>
 
-                        <a href="home" <?php if ($halaman == 'index.php' || $halaman == 'home.php') {
+                        <a href="../home" <?php if ($halaman == 'index.php' || $halaman == 'home.php') {
                             echo 'class="base"';
                         } ?>>
                             Home
                         </a>
                     </li>
                     <li>
-                        <a href="blog" <?php if ($halaman == 'blog.php') {
+                        <a href="../blog" <?php if ($halaman == 'blog.php') {
                             echo 'class="base"';
                         } ?>>
                             Blog
                         </a>
                     </li>
                     <li>
-                        <a href="documentation" <?php if ($halaman == 'documentation.php') {
+                        <a href="../documentation" <?php if ($halaman == 'documentation.php') {
                             echo 'class="base"';
                         } ?>>
 
@@ -112,7 +106,7 @@
 
                     <?php if ($or_setting_status == '1' || $buka_sesuai_jadwal) { ?>
                         <li>
-                            <a href="open-recruitment" <?php if ($halaman == 'open-recruitment.php') {
+                            <a href="../open-recruitment" <?php if ($halaman == 'open-recruitment.php') {
                                 echo 'class="base"';
                             } ?>>
                                 OPEN RECRUITMENT
@@ -142,25 +136,24 @@
                             </div>
 
 
-
                             <div class="dropdown-content" aria-labelledby="navbar-picture">
-                                <a class="dropdown-item" href="u/profile">
+                                <a class="dropdown-item" href="profile">
                                     <i class="bi bi-person fa-fw"></i> Profile
                                 </a>
-                                <a class="dropdown-item" href="u/notifications">
+                                <a class="dropdown-item" href="notifications">
                                     <i class="bi bi-bell fa-fw"></i> Notifications
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="bi bi-person-add fa-fw"></i> Open Recruitmen
                                 </a>
-                                <a class="dropdown-item" href="u/settings">
+                                <a class="dropdown-item" href="settings">
                                     <i class="bi bi-gear fa-fw"></i> Settings
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="manager/">
+                                <a class="dropdown-item" href="../manager/">
                                     <i class="bi bi-person-badge fa-fw"></i> Manager
                                 </a>
-                                <a class="dropdown-item" href="logout">
+                                <a class="dropdown-item" href="../logout">
                                     <i class="bi bi-box-arrow-right fa-fw"></i> Logout
                                 </a>
                             </div>
@@ -168,7 +161,7 @@
                         <!-- USERNAME & AVATAR -->
                     <?php } else { ?>
                         <!-- LOGIN BTN -->
-                        <a href="login/login.php" class="d-flex fw-500 cmn--btn align-items-center gap-2">
+                        <a href="../login/login.php" class="d-flex fw-500 cmn--btn align-items-center gap-2">
                             <span class="get__text">
                                 Login
                             </span>
@@ -219,7 +212,7 @@
                                 LINUX COMMUNITY</span>
                         </h1>
                         <div class="video__area">
-                            <img src="assets/img/banner/bn-arrow.png" class="vid__arrow" alt="img">
+                            <img src="../assets/img/banner/bn-arrow.png" class="vid__arrow" alt="img">
                             <a href="#" class="video__80 video-btn">
                                 <i class="bi bi-play-fill"></i>
                             </a>
@@ -231,7 +224,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="banner__thumb" data-aos="fade-up-right" data-aos-duration="300">
-                        <img src="assets/img/banner/banner-man.png" alt="man-img">
+                        <img src="../assets/img/banner/banner-man.png" alt="man-img">
                     </div>
                 </div>
             </div>
@@ -239,7 +232,7 @@
         <div class="banner__leftinfo">
             <div class="left__infomobile">
                 <a href="#0">
-                    <img src="assets/img/banner/dial.png" alt="img">
+                    <img src="../assets/img/banner/dial.png" alt="img">
                 </a>
                 <a href="#0">
                     <!--  (+02)-574-328-301 -->
@@ -250,7 +243,7 @@
                     scroll down
                 </a>
                 <a href="#down" class="scroll__bar">
-                    <img src="assets/img/banner/scroll-down.png" alt="img">
+                    <img src="../assets/img/banner/scroll-down.png" alt="img">
                 </a>
             </div>
         </div>
@@ -260,7 +253,7 @@
                     Follow Us
                 </a>
                 <a href="#0" class="scroll__bar">
-                    <img src="assets/img/banner/scroll-down.png" alt="img">
+                    <img src="../assets/img/banner/scroll-down.png" alt="img">
                 </a>
             </div>
             <div class="banner__xlsocial">
@@ -336,7 +329,7 @@
             </div>
         <?php } else { ?>
 
-            <a href="login/login" class="d-flex justify-content-center cmn--btn align-items-center gap-2 my-3">
+            <a href="../login/login" class="d-flex justify-content-center cmn--btn align-items-center gap-2 my-3">
                 <span>
                     <i class="bi bi-chevron-right"></i>
                 </span>
@@ -351,20 +344,20 @@
         <?php if (isset($_SESSION['id_user'])) { ?>
             <div class="card" style="background-color: #141410;">
                 <div class="card-body p-2">
-                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="u/profile">
+                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="profile">
                         <i class="bi bi-person fa-fw"></i> Profile
                     </a>
-                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="u/notifications">
+                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="notifications">
                         <i class="bi bi-bell fa-fw"></i> Notifications
                     </a>
-                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="open-recruitment">
+                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="../open-recruitment">
                         <i class="bi bi-person-add fa-fw"></i> Open Recruitmen
                     </a>
-                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="u/settings">
+                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="settings">
                         <i class="bi bi-gear fa-fw"></i> Settings
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="manager/">
+                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="../manager/">
                         <i class="bi bi-person-badge fa-fw"></i> Manager
                     </a>
                 </div>
@@ -377,8 +370,8 @@
         <hr class="base my-4">
 
 
-        <a href="index-2.html" class="side-logo">
-            <img src="assets/img/logo/logo.png" alt="img">
+        <a href="../index-2.html" class="side-logo">
+            <img src="../assets/img/logo/logo.png" alt="img">
         </a>
         <p>
             Berpartisipasi dan berperan aktif dalam mengembangkan jaringan kerjasama dengan lembaga Politeknik Negeri

@@ -95,7 +95,7 @@
         <!--<< Header v-1 >>-->
         <div class="container pt-60 pb-60">
             <!-- BUTTON -->
-            <a href="open-recruitment.html" class=" cmn--btn align-items-center">
+            <a href="open-recruitment" class=" cmn--btn align-items-center">
                 <span>
                     <i class="bi bi-arrow-left fz-20"></i>
                 </span>

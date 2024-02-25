@@ -125,13 +125,13 @@
                         <!-- USERNAME & AVATAR -->
                         <div class="dropdown ">
                             <div class="d-flex">
-                                <img src="https://ukmpolicy.org/images/<?php echo $_SESSION['picture'] ?>"
+                                <img src="../uploads/<?php echo $users['picture'] ?>"
                                     onerror="this.onerror=null; this.src='https://ukmpolicy.org/images/default_picture.webp'"
-                                    alt="Avatar" class="avatar">
+                                    alt="Avatar" class="avatar" style="aspect-ratio: 1 / 1; object-fit:cover;">
 
 
                                 <span class="ellipsis m-2 d-none d-md-block">
-                                    <?php echo $_SESSION['name'] ?>
+                                    <?php echo $users['name'] ?>
                                 </span>
                             </div>
 
@@ -310,15 +310,14 @@
             <div class="">
                 <a href="#0" class="d-flex justify-content-center align-items-center py-3 rounded gap-2"
                     style="background-color: #141410;">
-                    <img src="https://ukmpolicy.org/images/<?php echo $_SESSION['image'] ?>"
+                    <img src="../uploads/<?php echo $users['picture'] ?>"
                         onerror="this.onerror=null; this.src='https://ukmpolicy.org/images/default_picture.webp'"
-                        alt="Avatar" class="avatar">
+                        alt="Avatar" class="avatar" style="aspect-ratio: 1 / 1; object-fit:cover;">
                     <span class="get__text text-light">
-                        <?php echo $_SESSION['name'] ?>
+                        <?php echo $users['name'] ?>
                     </span>
                 </a>
-                <a href="logout?page=<?php echo $halaman; ?>"
-                    class="d-flex justify-content-center cmn--btn align-items-center gap-2 my-3">
+                <a href="../logout" class="d-flex justify-content-center cmn--btn align-items-center gap-2 my-3">
                     <span>
                         <i class="bi bi-box-arrow-left"></i>
                     </span>

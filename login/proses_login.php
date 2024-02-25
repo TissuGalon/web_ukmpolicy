@@ -8,7 +8,6 @@ $query = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'");
 $row = mysqli_fetch_array($query);
 
 if ($row) {
-
     if (password_verify($password, $row['password'])) {
         $_SESSION['id_user'] = $row['id'];
         $_SESSION['name'] = $row['name'];
@@ -17,9 +16,9 @@ if ($row) {
         $_SESSION['picture'] = $row['picture'];
         header('location:../index?login=berhasil');
     } else {
-        header('location:login?login=gagal');
+        header('location:login?message=login_failed');
     }
 } else {
-    header('location:login?login=gagal');
+    header('location:login?message=login_failed');
 }
 ?>

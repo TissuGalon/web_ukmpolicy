@@ -1,3 +1,4 @@
+<?php include 'proses/koneksi.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,58 +41,9 @@
     <!--<< banner >>-->
     <section class="breadcrumnd__section">
         <!--<< Header v-1 >>-->
-        <header class="header-section">
-            <div class="container">
-                <div class="header-wrapper">
-                    <div class="main__logo">
-                        <a href="index.html" class="logo">
-                            <img src="assets/img/logo/logo.png" alt="logo">
-                        </a>
-                    </div>
-                    <ul class="main-menu">
-                        <li>
-                            <a href="index.html">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="blog.html">
-                                Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a href="documentation.html">
-                                Documentation
-                            </a>
-                        </li>
-                        <li>
-                            <a href="open-recruitment.html">
-                                OPEN RECRUITMENT
-                            </a>
-                        </li>
-
-                    </ul>
-                    <div class="menu__components d-flex align-items-center">
-                        <a href="#" class="d-flex fw-500 cmn--btn align-items-center gap-2">
-                            <span class="get__text">
-                                Login
-                            </span>
-                            <span>
-                                <i class="bi bi-arrow-right fz-20"></i>
-                            </span>
-                        </a>
-                        <div class="header-bar d-lg-none">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <div class="remove__click">
-                            <i class="bi bi-list"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <!-- HEADER -->
+        <?php include 'header.php'; ?>
+        <!-- HEADER -->
         <!--<< Header v-1 >>-->
         <div class="container pt-60 pb-60">
             <!-- BUTTON -->
@@ -118,6 +70,27 @@
     </section>
     <!--<< banner >>-->
 
+    <?php
+    $kueri1 = mysqli_query($conn, "SELECT * FROM kuisioner_or WHERE active = 1");
+    $row1 = mysqli_fetch_array($kueri1);
+    $id_kuisioner = $row1['id'];
+    $json_data_pertanyaan = $row1['kuisioner'];
+    $data1 = json_decode($json_data_pertanyaan, true);
+
+    $iduser = $_SESSION['id_user'];
+
+    $kueri2 = mysqli_query($conn, "SELECT * FROM jawaban_kuisioner_or WHERE kuisioner_id = $id_kuisioner AND user_id = $iduser");
+    $row2 = mysqli_fetch_array($kueri2);
+    $cek_jawaban = mysqli_num_rows($kueri2);
+
+    if ($cek_jawaban > 0) {
+        $json_data_jawaban = $row2['jawaban'];
+        $data2 = json_decode($json_data_jawaban, true);
+    }
+
+
+    ?>
+
     <!--<< Contact >>-->
     <section class="contact__section">
         <div class="container">
@@ -126,50 +99,37 @@
                     <div class="contact__box">
                         <div class="replay__box cmn__bg">
 
-                            <form action="#" name="enq" method="post" class="row g-4">
+                            <form action="proses/or/isi_kuisioner" id="form_kuisioner" name="enq" method="GET"
+                                class="row g-4">
 
-                                <label for="" class="he1">1. deskripsikan diri anda dan ceritakan secara singkat
-                                </label>
-                                <div class="col-lg-12">
-                                    <textarea name="soal1" id="" cols="30" rows="3"></textarea>
-                                </div>
+                                <input type="hidden" name="id_kuisioner" value="<?php echo $id_kuisioner; ?>">
 
+                                <?php
+                                $i = 0;
+                                while ($i < count($data1['pertanyaan'])) {
+                                    ?>
+                                    <!-- LABEL PERTANYAAN -->
+                                    <label for="" class="he1">
+                                        <?php echo ($i + 1) . ". " . $data1['pertanyaan'][$i]; ?>
+                                    </label>
+                                    <!-- LABEL PERTANYAAN -->
 
-                                <label for="" class="he1">2. Apa alasan serta tujuan ingin bergabung di UKM-POLICY
-                                </label>
-                                <div class="col-lg-12">
-                                    <textarea name="soal2" id="" cols="30" rows="3"></textarea>
-                                </div>
+                                    <!-- JAWABAN -->
+                                    <div class="col-lg-12">
+                                        <textarea name="soal<?php echo $i + 1; ?>" id="" cols="30" rows="3" value="<?php if ($cek_jawaban > 0) {
+                                                 echo $data2['jawaban'][$i];
+                                             } ?>"><?php if ($cek_jawaban > 0) {
+                                                  echo $data2['jawaban'][$i];
+                                              } ?></textarea>
+                                    </div>
+                                    <!-- JAWABAN -->
 
+                                    <?php
+                                    $i++;
+                                }
+                                ?>
 
-                                <label for="" class="he1">3. Jelaskan makna logo UKM-POLICY
-                                </label>
-                                <div class="col-lg-12">
-                                    <textarea name="soal3" id="" cols="30" rows="3"></textarea>
-                                </div>
-
-
-                                <label for="" class="he1">4. Sebutkan visi dan misi UKM-POLICY
-                                </label>
-                                <div class="col-lg-12">
-                                    <textarea name="soal4" id="" cols="30" rows="3"></textarea>
-                                </div>
-
-
-                                <label for="" class="he1">5. Jelaskan sejarah terbentuknya UKM-POLICY
-                                </label>
-                                <div class="col-lg-12">
-                                    <textarea name="soal5" id="" cols="30" rows="3"></textarea>
-                                </div>
-
-
-                                <label for="" class="he1">6. Apa yang kamu ketahui tentang Linux dan Open Source
-                                </label>
-                                <div class="col-lg-12">
-                                    <textarea name="soal6" id="" cols="30" rows="3"></textarea>
-                                </div>
-
-                                <button type="submit" value="Send message" name="submit"
+                                <button onclick="submitForm()"
                                     class="d-flex border-0 d-flex fw-500 cmn--btn align-items-center gap-2">
                                     <span class="get__text">
                                         Simpan Jawaban
@@ -178,6 +138,12 @@
                                         <i class="bi bi-arrow-right fz-20"></i>
                                     </span>
                                 </button>
+
+                                <script>
+                                    function submitForm() {
+                                        document.getElementById("form_kuisioner").submit();
+                                    }
+                                </script>
 
                             </form>
                         </div>

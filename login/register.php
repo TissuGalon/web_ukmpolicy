@@ -112,28 +112,21 @@
 <body>
 
 
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php
-    if (isset($_GET['message']) && $_GET['message'] == "login_failed") { ?>
+    if (isset($_GET['message']) && $_GET['message'] == "email_used") { ?>
 
         <script>
             Swal.fire({
-                title: "Login Gagal",
-                text: "Email atau Password salah",
-                icon: "error"
+                title: "Email sudah digunakan !",
+                text: "Gunakan email lain untuk daftar",
+                icon: "warning"
             }).then((result) => {
-                window.location.href = 'login';
+                window.location.href = 'register';
             });
         </script>
 
-    <?php } elseif (isset($_GET['message']) && $_GET['message'] == "account_created") { ?>
-        <script>
-            Swal.fire({
-                title: "Berhasil",
-                text: "Akun berhasil dibuat",
-                icon: "success"
-            });
-        </script>
     <?php } ?>
 
 
@@ -151,53 +144,61 @@
                                 </span>
 
                                 <span class="app-brand-text demo text-white fw-bolder"
-                                    style="text-transform:capitalize;">Sign in
+                                    style="text-transform:capitalize;">Sign up
                                     to POLICY</span>
                             </a>
                         </div>
-                        <p class="text-center">Welcome to POLICY.</p>
+                        <p class="text-center">Welcome to POLICY, let's join with us.</p>
                         <!-- /Logo -->
 
 
-                        <form id="formAuthentication" class="mb-3" action="proses_login.php" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="proses_register.php" method="POST">
+                            <div class="mb-3">
+                                <label for="name" class="form-label text-white">Name</label>
+                                <input type="text" style="color:black" class="form-control" id="name" name="name"
+                                    placeholder="Enter your Name" autofocus required />
+                            </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label text-white">Email</label>
-                                <input type="text" class="form-control" id="email-user" name="email"
-                                    placeholder="Enter your Email" autofocus required <?php if (isset($_GET['email'])) {
-                                        echo 'value="' . $_GET['email'] . '"';
-                                    } ?> />
+                                <input type="text" style="color:black" class="form-control" id="email" name="email"
+                                    placeholder="Enter your Email" required />
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label text-white" for="password">Password</label>
-                                    <a href="lupa_password.php">
-                                        <small style="color: #dc3545;">Lupa Password?</small>
-                                    </a>
                                 </div>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="password" class="form-control" name="password"
+                                    <input type="password" style="color:black" id="password" class="form-control"
+                                        name="password"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                         aria-describedby="password" required />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="remember-me" />
-                                    <label class="form-check-label" for="remember-me"> Remember Me </label>
+                            <div class="mb-3 form-password-toggle">
+                                <div class="d-flex justify-content-between">
+                                    <label class="form-label text-white" for="password">Confirm Password</label>
+                                </div>
+                                <div class="input-group input-group-merge">
+                                    <input type="password" style="color:black" id="password" class="form-control"
+                                        name="password"
+                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                        aria-describedby="password" required />
+                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                             </div>
+
                             <div class="mb-3">
                                 <button class="btn btn-dark d-grid w-100" style="background-color: #dc3545;"
                                     type="submit">Sign
-                                    in</button>
+                                    up</button>
                             </div>
                         </form>
 
                         <p class="text-center">
-                            <span>New to POLICY?</span>
-                            <a href="register">
-                                <span style="color: #dc3545;">Create an account</span>
+                            <span>Already have an account?</span>
+                            <a href="login">
+                                <span style="color: #dc3545;">Sign in</span>
                             </a>
                         </p>
                     </div>

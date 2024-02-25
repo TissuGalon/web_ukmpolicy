@@ -30,7 +30,7 @@
 
 
     <!-- PROFILE -->
-    <div class="container mt-5 pt-60 pb-30 " style="border-radius:16px; background-color: #202020;  background-image: url('images/or-pattern.png');
+    <div class="container mt-5 pt-60 pb-30 " style="border-radius:16px; background-color: #202020;
             background-repeat: repeat;
             background-size: cover;">
         <div class=" ">
@@ -80,30 +80,47 @@
             <!-- NAV -->
             <hr class="mt-3 mx-5">
             <br>
+
+
+
+
             <!-- ISI -->
             <div class="replay__box cmn__bg mx-xl-5">
-                <form action="#">
+                <form id="form_setting" action="update_settings.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group mb-3">
                         <label for="profilePicture">Profile Picture</label>
-                        <input type="file" class="form-control-file" id="profilePicture">
+                        <input type="file" class="form-control-file" name="picture" id="profilePicture">
                     </div>
                     <div class="form-group mb-3">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" value="Muhammad Kholis">
+                        <input type="text" class="form-control" name="name" id="name"
+                            value="<?php echo $users['name'] ?>">
                     </div>
                     <div class="form-group mb-3">
                         <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" value="hV6wf1-18554258">
+                        <input type="text" class="form-control" name="username" id="username"
+                            value="<?php echo $users['username'] ?>">
                     </div>
                     <div class="form-group mb-3">
                         <label for="bio">Bio</label>
-                        <textarea class="form-control" id="bio">Hi, I love linux and Open Source.</textarea>
+                        <textarea class="form-control" name="bio" id="bio"><?php echo $users['bio'] ?></textarea>
                     </div>
-                    <button type="submit" class="btn btn-danger" style="background-color:#DC3545">Save
-                        Changes</button>
+                    <button onclick="submitForm()"
+                        class="border-0 d-flex fw-500 cmn--btn align-items-center gap-2 mt-30 w-100">
+                        <span class="get__text">Simpan</span>
+                        <span><i class="bi bi-save fz-20"></i></span>
+                    </button>
                 </form>
+
+                <script>
+                    function submitForm() {
+                        document.getElementById("form_setting").submit();
+                    }
+                </script>
             </div>
+
             <!-- ISI -->
+
 
         </div>
     </div>

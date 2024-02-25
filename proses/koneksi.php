@@ -5,6 +5,18 @@ if (!$conn) {
     die('Koneksi Error');
 }
 
+date_default_timezone_set('Asia/Jakarta');
+
+
+/* GET USER DATA */
+if (isset($_SESSION['id_user'])) {
+    $iduser = $_SESSION['id_user'];
+    $kueri_user = mysqli_query($conn, "SELECT * FROM users WHERE id = $iduser");
+    $users = mysqli_fetch_array($kueri_user);
+}
+/* GET USER DATA */
+
+
 /* GET CURRENT PAGE FILENAME */
 $halaman = basename($_SERVER['PHP_SELF']);
 /* GET CURRENT PAGE FILENAME */
@@ -35,5 +47,73 @@ if ($or_setting_status == '0' && (time() > strtotime($or_setting_start) || time(
 }
 /* SETTING OR */
 
+
+
+
+
+/* UPLOAD IMAGE FUNCTION */
+function uploadGambar($file, $url)
+{
+    $targetDirectory = $url;
+    $originalFileName = basename($file["name"]);
+    $fileExtension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+
+    // Generate a unique identifier (random string)
+    $randomString = bin2hex(random_bytes(8));
+
+    // Create a random file name using the unique identifier and original file extension
+    $randomFileName = $randomString . '.' . $fileExtension;
+
+    $targetFile = $targetDirectory . $randomFileName;
+    $uploadOk = 1;
+    $imageFileType = strtolower($fileExtension);
+
+    $pesanerror = "";
+
+    // Check if image file is a actual image or fake image
+    $check = getimagesize($file["tmp_name"]);
+    if ($check !== false) {
+        $pesanerror = "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+        $pesanerror = "File is not an image.";
+        $uploadOk = 0;
+    }
+
+    // Check if file already exists
+    if (file_exists($targetFile)) {
+        $pesanerror = "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+
+    // Check file size
+    if ($file["size"] > 5000000) {
+        $pesanerror = "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+
+    // Allow certain file formats
+    $allowedFormats = ["jpg", "jpeg", "png", "gif"];
+    if (!in_array($imageFileType, $allowedFormats)) {
+        $pesanerror = "Sorry, only JPG, JPEG, PNG, and GIF files are allowed.";
+        $uploadOk = 0;
+    }
+
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        /* return "Sorry, your file was not uploaded."; */
+        return $pesanerror;
+    } else {
+        // If everything is ok, try to upload file
+        if (move_uploaded_file($file["tmp_name"], $targetFile)) {
+            $status = ["success", $randomFileName];
+            return $status;
+        } else {
+            $status = ["error", $pesanerror];
+            return "error";
+        }
+    }
+}
+/* UPLOAD IMAGE FUNCTION */
 
 ?>

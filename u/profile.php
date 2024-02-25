@@ -81,23 +81,31 @@
             <!-- NAV -->
             <hr class="mt-3 mx-5">
             <br>
+
             <!-- ISI -->
             <div class="container">
                 <div class="row text-start">
                     <div class="col-12 col-xl-3 text-center">
-                        <img src="https://ukmpolicy.org/images/<?php echo $_SESSION['picture'] ?>"
+                        <img src="../uploads/<?php echo $users['picture'] ?>"
                             onerror="this.onerror=null; this.src='https://ukmpolicy.org/images/default_picture.webp'"
-                            alt=" Avatar" class="rounded mb-3">
+                            alt=" Avatar" class="rounded mb-3"
+                            style="aspect-ratio: 1 / 1; width:200px; height: 200px; object-fit:cover;">
                     </div>
                     <div class="col-12 col-xl-9">
                         <br>
-                        <h3 class="">Muhammad Kholis</h3>
-                        <h6 class="">hV6wf1-18554258</h6>
+                        <h3 class="">
+                            <?php echo $users['name'] ?>
+                        </h3>
+                        <h6 class="">
+                            <?php echo $users['username'] ?>
+                        </h6>
                         <br>
                         <div class="card" style="background-color:#373737;">
                             <div class="card-body">
                                 <h6 class="d-flex"><i class="bi bi-quote"></i>
-                                    <div class="ms-3">Hi, I love Linux and Open Source.</div>
+                                    <div class="ms-3">
+                                        <?php echo $users['bio'] ?>
+                                    </div>
                                 </h6>
                             </div>
                         </div>

@@ -41,58 +41,7 @@
    <!--<< banner >>-->
    <section class="breadcrumnd__section">
       <!--<< Header v-1 >>-->
-      <header class="header-section">
-         <div class="container">
-            <div class="header-wrapper">
-               <div class="main__logo">
-                  <a href="index.html" class="logo">
-                     <img src="assets/img/logo/logo.png" alt="logo">
-                  </a>
-               </div>
-               <ul class="main-menu">
-                  <li>
-                     <a href="index.html">
-                        Home
-                     </a>
-                  </li>
-                  <li>
-                     <a href="blog.html">
-                        Blog
-                     </a>
-                  </li>
-                  <li>
-                     <a href="documentation.html">
-                        Documentation
-                     </a>
-                  </li>
-                  <li>
-                     <a href="open-recruitment.html">
-                        OPEN RECRUITMENT
-                     </a>
-                  </li>
-
-               </ul>
-               <div class="menu__components d-flex align-items-center">
-                  <a href="#" class="d-flex fw-500 cmn--btn align-items-center gap-2">
-                     <span class="get__text">
-                        Login
-                     </span>
-                     <span>
-                        <i class="bi bi-arrow-right fz-20"></i>
-                     </span>
-                  </a>
-                  <div class="header-bar d-lg-none">
-                     <span></span>
-                     <span></span>
-                     <span></span>
-                  </div>
-                  <div class="remove__click">
-                     <i class="bi bi-list"></i>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </header>
+      <?php include 'header.php'; ?>
       <!--<< Header v-1 >>-->
 
       <?php

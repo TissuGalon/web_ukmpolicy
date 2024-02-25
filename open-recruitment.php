@@ -81,74 +81,64 @@
 
     <?php } else { ?>
 
+
         <!--<< FORMULIR OR >>-->
         <section class="contact__section">
             <div class="container">
                 <div class="row g-4">
                     <div class="col-lg-8" data-aos="fade-up" data-aos-duration="1000">
+
+                        <?php
+                        $user_id = $_SESSION['id_user'];
+                        $kueri1 = mysqli_query($conn, "SELECT * FROM or_userdata_2024 WHERE user_id = $user_id");
+                        $cek1 = mysqli_num_rows($kueri1);
+                        $row1 = mysqli_fetch_array($kueri1);
+
+                        if ($cek1 > 0) {
+                            $nim = $row1['nim'];
+                            $nama = $row1['nama'];
+                            $jurusan = $row1['jurusan'];
+                            $prodi = $row1['prodi'];
+                            $alamat = $row1['alamat'];
+                            $tgl_lahir = $row1['tgl_lahir'];
+                            $tempat_lahir = $row1['tempat_lahir'];
+                            $softskills = $row1['softskills'];
+                            $no_wa = $row1['no_wa'];
+                        } else {
+                            $nim = '';
+                            $nama = '';
+                            $jurusan = '';
+                            $prodi = '';
+                            $alamat = '';
+                            $tgl_lahir = '';
+                            $tempat_lahir = '';
+                            $softskills = '';
+                            $no_wa = '';
+                        }
+
+                        ?>
+
                         <div class="contact__box">
                             <div class="replay__box cmn__bg">
                                 <h3>
                                     Data Diri
                                 </h3>
-                                <form action="#" name="enq" method="post" action="#" onsubmit="return validation();"
+                                <form action="proses/or/isi_or_userdata" id="form_or_userdata" name="enq" method="GET"
                                     class="row g-4">
                                     <label for="" class="he1">NIM</label>
                                     <div class="col-lg-12">
-                                        <input type="text" name="nim" placeholder="NIM">
+                                        <input type="text" value="<?php echo $nim; ?>" name="nim" placeholder="NIM"
+                                            maxlength="25">
                                     </div>
                                     <label for="" class="he1">Nama</label>
                                     <div class="col-lg-12">
-                                        <input type="text" name="name" placeholder="Name">
+                                        <input type="text" value="<?php echo $nama; ?>" name="nama" placeholder="Name"
+                                            maxlength="50">
                                     </div>
-                                    <label for="" class="he1">Alamat</label>
-                                    <div class="col-lg-12">
-                                        <input type="text" name="alamat" placeholder="Alamat">
-                                    </div>
-                                    <label for="" class="he1">Tanggal Lahir</label>
-                                    <div class="col-lg-12">
-                                        <input type="date" name="tgl" placeholder="Alamat">
-                                    </div>
-                                    <label for="" class="he1">Tempat Lahir</label>
-                                    <div class="col-lg-12">
-                                        <input type="text" name="tempat" placeholder="Tempat Lahir">
-                                    </div>
-                                    <label for="" class="he1">Softskills</label>
-                                    <div class="col-lg-12">
-                                        <textarea name="softskills"
-                                            placeholder="Jelaskan Softskill yang anda miliki (Jika Ada)" id="" cols="30"
-                                            rows="10"></textarea>
-                                    </div>
-
-
-                                </form>
-                            </div>
-                        </div>
-                        <div class="contact__box mt-3">
-                            <div class="replay__box cmn__bg">
-                                <form action="#" name="enq" method="post" action="#" onsubmit="return validation();"
-                                    class="row g-4">
-                                    <label for="" class="he1">No Whatsapp</label>
-                                    <div class="col-lg-12">
-                                        <input type="number" name="no" placeholder="No Whatsapp">
-                                    </div>
-                                    <label for="" class="he1">Email</label>
-                                    <div class="col-lg-12">
-                                        <input type="email" name="email" placeholder="Email">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4" data-aos="fade-up" data-aos-duration="1500">
-                        <div class="contact__box mb-3">
-                            <div class="replay__box cmn__bg">
-                                <form action="#" name="enq" method="post" action="#" onsubmit="return validation();"
-                                    class="row g-4">
+                                    <!-- JURUSAN & PRODI -->
                                     <label for="" class="he1">Jurusan</label>
                                     <div class="col-lg-12">
-                                        <select class="" value="Teknologi Informasi dan Komputer" id="jurusan"
-                                            name="jurusan">
+                                        <select class="" value="<?php echo $jurusan; ?>" id="jurusan" name="jurusan">
                                             <option value="Teknik Sipil">Teknik Sipil</option>
                                             <option value="Teknik Mesin">Teknik Mesin</option>
                                             <option value="Teknik Kimia">Teknik Kimia</option>
@@ -161,7 +151,8 @@
                                     </div>
                                     <label for="" class="he1">Program Studi</label>
                                     <div class="col-lg-12">
-                                        <select class="form-control rounded-0" id="prodi" name="prodi">
+                                        <select class="form-control rounded-0" value="<?php echo $prodi; ?>" id="prodi"
+                                            name="prodi">
                                             <option selected="" value="Teknik Informatika">Teknik Informatika
                                             </option>
                                             <option value="Teknologi Rekayasa Komputer Jaringan">Teknologi Rekayasa
@@ -172,46 +163,105 @@
                                             </option>
                                         </select>
                                     </div>
+                                    <!-- JURUSAN & PRODI -->
+                                    <label for="" class="he1">Alamat</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" name="alamat" value="<?php echo $alamat; ?>" placeholder="Alamat"
+                                            maxlength="60">
+                                    </div>
+                                    <label for="" class="he1">Tanggal Lahir</label>
+                                    <div class="col-lg-12">
+                                        <input type="date" name="tgl_lahir" value="<?php echo $tgl_lahir; ?>"
+                                            placeholder="Alamat">
+                                    </div>
+                                    <label for="" class="he1">Tempat Lahir</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" name="tempat_lahir" value="<?php echo $tempat_lahir; ?>"
+                                            placeholder="Tempat Lahir" maxlength="40">
+                                    </div>
+                                    <label for="" class="he1">Softskills</label>
+                                    <div class="col-lg-12">
+                                        <textarea name="softskills"
+                                            placeholder="Jelaskan Softskill yang anda miliki (Jika Ada)" id="" cols="30"
+                                            rows="10"><?php echo $softskills; ?></textarea>
+                                    </div>
+                                    <label for="" class="he1">No Whatsapp</label>
+                                    <div class="col-lg-12">
+                                        <input type="number" name="no_wa" value="<?php echo $no_wa; ?>"
+                                            placeholder="No Whatsapp" maxlength="20">
+                                    </div>
+
+                                    <button onclick="submitUserData()"
+                                        class=" border-0 d-flex fw-500 cmn--btn align-items-center gap-2 mt-30 w-100">
+                                        <span class="get__text">
+                                            Simpan
+                                        </span>
+                                        <span>
+                                            <i class="bi bi-save fz-20"></i>
+                                        </span>
+                                    </button>
+
+                                    <script>
+                                        function submitUserData() {
+                                            document.getElementById("form_or_userdata").submit();
+                                        }
+                                    </script>
+
                                 </form>
                             </div>
                         </div>
+
+                    </div>
+                    <div class="col-lg-4" data-aos="fade-up" data-aos-duration="1500">
                         <div class="contact__rightside cmn__bg">
-                            <h4 class="mb-30">
-                                Upload Berkas
-                            </h4>
-                            <div class="contact__item mb-20">
-                                <span class="he1">
-                                    Pas Foto 3x4
-                                </span>
-                                <input type="file">
-                            </div>
-                            <div class="contact__item mb-20">
-                                <span class="he1">
-                                    Bukti Kelulusan PKKMB
-                                </span>
-                                <input type="file">
-                            </div>
-                            <div class="contact__item mb-20">
-                                <span class="he1">
-                                    Bukti Follow Instagram
-                                </span>
-                                <input type="file">
-                            </div>
-                            <div class="contact__item mb-20">
-                                <span class="he1">
-                                    Bukti Follow TikTok
-                                </span>
-                                <input type="file">
-                            </div>
-                            <div class="contact__item mb-20">
-                                <span class="he1">
-                                    Bukti Subscribe Youtube
-                                </span>
-                                <input type="file">
-                            </div>
-                            <span class="he1">
-                                Kuisioner
-                            </span>
+                            <form action="">
+                                <h3 class="mb-30">
+                                    Upload Berkas
+                                </h3>
+                                <div class="contact__item mb-20">
+                                    <span class="he1">
+                                        Pas Foto 3x4
+                                    </span>
+                                    <input type="file">
+                                </div>
+                                <div class="contact__item mb-20">
+                                    <span class="he1">
+                                        Bukti Kelulusan PKKMB
+                                    </span>
+                                    <input type="file">
+                                </div>
+                                <div class="contact__item mb-20">
+                                    <span class="he1">
+                                        Bukti Follow Instagram
+                                    </span>
+                                    <input type="file">
+                                </div>
+                                <div class="contact__item mb-20">
+                                    <span class="he1">
+                                        Bukti Follow TikTok
+                                    </span>
+                                    <input type="file">
+                                </div>
+                                <div class="contact__item mb-20">
+                                    <span class="he1">
+                                        Bukti Subscribe Youtube
+                                    </span>
+                                    <input type="file">
+                                </div>
+                                <button type="submit"
+                                    class=" border-0 d-flex fw-500 cmn--btn align-items-center gap-2 mt-30 w-100">
+                                    <span class="get__text">
+                                        Upload File
+                                    </span>
+                                    <span>
+                                        <i class="bi bi-upload fz-20"></i>
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+
+
+                        <div class="contact__rightside cmn__bg mt-3">
                             <a href="kuisioner"
                                 class=" border-0 d-flex fw-500 cmn--btn align-items-center gap-2 mt-30 w-100">
                                 <span class="get__text">
@@ -221,18 +271,6 @@
                                     <i class="bi bi-book fz-20"></i>
                                 </span>
                             </a>
-                        </div>
-
-                        <div class="contact__rightside cmn__bg d-flex mt-3">
-                            <button type="submit" value="Send message" name="submit"
-                                class=" border-0 d-flex fw-500 cmn--btn align-items-center gap-2 mt-30 w-100">
-                                <span class="get__text">
-                                    Simpan
-                                </span>
-                                <span>
-                                    <i class="bi bi-save fz-20"></i>
-                                </span>
-                            </button>
                             <div class="mx-2"></div>
                             <button type="submit" value="Send message" name="submit"
                                 class=" border-0 d-flex fw-500 cmn--btn align-items-center gap-2 mt-30 w-100">
@@ -243,6 +281,7 @@
                                     <i class="bi bi-print fz-20"></i>
                                 </span>
                             </button>
+
                         </div>
                     </div>
                 </div>

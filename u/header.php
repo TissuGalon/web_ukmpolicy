@@ -104,15 +104,7 @@
                         </a>
                     </li>
 
-                    <?php if ($or_setting_status == '1' || $buka_sesuai_jadwal) { ?>
-                        <li>
-                            <a href="../open-recruitment" <?php if ($halaman == 'open-recruitment.php') {
-                                echo 'class="base"';
-                            } ?>>
-                                OPEN RECRUITMENT
-                            </a>
-                        </li>
-                    <?php } ?>
+
 
 
                 </ul>
@@ -143,16 +135,16 @@
                                 <a class="dropdown-item" href="notifications">
                                     <i class="bi bi-bell fa-fw"></i> Notifications
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="bi bi-person-add fa-fw"></i> Open Recruitmen
-                                </a>
+
                                 <a class="dropdown-item" href="settings">
                                     <i class="bi bi-gear fa-fw"></i> Settings
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../manager/">
-                                    <i class="bi bi-person-badge fa-fw"></i> Manager
-                                </a>
+                                <?php if ($users['role_id'] == 2 || $users['role_id'] == 3) { ?>
+                                    <a class="dropdown-item" href="../manager_v2/">
+                                        <i class="bi bi-person-badge fa-fw"></i> Manager
+                                    </a>
+                                <?php } ?>
                                 <a class="dropdown-item" href="../logout">
                                     <i class="bi bi-box-arrow-right fa-fw"></i> Logout
                                 </a>
@@ -349,16 +341,16 @@
                     <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="notifications">
                         <i class="bi bi-bell fa-fw"></i> Notifications
                     </a>
-                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="../open-recruitment">
-                        <i class="bi bi-person-add fa-fw"></i> Open Recruitmen
-                    </a>
+
                     <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="settings">
                         <i class="bi bi-gear fa-fw"></i> Settings
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="../manager/">
-                        <i class="bi bi-person-badge fa-fw"></i> Manager
-                    </a>
+                    <?php if ($users['role_id'] == 2 || $users['role_id'] == 3) { ?>
+                        <a class="btn col-12 my-1 text-light py-2" style="background-color:#dc3545;" href="../manager_v2/">
+                            <i class="bi bi-person-badge fa-fw"></i> Manager
+                        </a>
+                    <?php } ?>
                 </div>
             </div>
         <?php } ?>

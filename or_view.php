@@ -38,9 +38,14 @@
     <!--<< Preloader >>-->
 
 
-    <!-- HEADER -->
-    <?php include 'header.php'; ?>
-    <!-- HEADER -->
+    <?php
+    $user_id = $_SESSION['id_user'];
+    $k = mysqli_query($conn, "SELECT * FROM or_userdata_2024 WHERE user_id = $user_id");
+    $q = mysqli_fetch_array($k);
+
+    $kk = mysqli_query($conn, "SELECT * FROM or_berkas WHERE user_id = $user_id");
+    $qq = mysqli_fetch_array($kk);
+    ?>
 
 
     <!-- BANNER -->
@@ -48,9 +53,13 @@
         <div class="row g-4 justify-content-center">
             <div class="col-lg-8">
                 <div class="breadcrumnd__wrap text-center">
-                    <h1>
-                        OPEN-RECRUITMENT
-                    </h1>
+                    <img src="uploads/berkas_or/<?php echo $qq['pas_foto'] ?>"
+                        onerror="this.onerror=null; this.src='https://ukmpolicy.org/images/default_picture.webp'"
+                        alt=" Avatar" class="rounded mb-3"
+                        style="aspect-ratio: 1 / 1; width:200px; height: 200px; object-fit:cover;">
+                    <h3>
+                        <?php echo strtoupper($q['nama']); ?>
+                    </h3>
 
                 </div>
             </div>
@@ -325,7 +334,7 @@
                                     <span class="he1">
                                         Pas Foto 3x4
                                     </span>
-                                    <input type="file" name="pas_foto" accept="image/*">
+                                    <input type="file" name="pas_foto">
                                     <?php if ($pas_foto == '' || $pas_foto == null) { ?>
                                         <div class="mt-2 bg-danger p-1 text-center"><i class="bi bi-x"></i> Tidak Ada berkas
                                         </div>
@@ -344,7 +353,7 @@
                                     <span class="he1">
                                         Bukti Kelulusan PKKMB
                                     </span>
-                                    <input type="file" name="sertifikat_pkkmb" accept="image/*">
+                                    <input type="file" name="sertifikat_pkkmb">
                                     <?php if ($sertifikat_pkkmb == '' || $sertifikat_pkkmb == null) { ?>
                                         <div class="mt-2 bg-danger p-1 text-center"><i class="bi bi-x"></i> Tidak Ada berkas
                                         </div>
@@ -364,7 +373,7 @@
                                     <span class="he1">
                                         Bukti Follow Instagram
                                     </span>
-                                    <input type="file" name="follow_instagram" accept="image/*">
+                                    <input type="file" name="follow_instagram">
                                     <?php if ($follow_instagram == '' || $follow_instagram == null) { ?>
                                         <div class="mt-2 bg-danger p-1 text-center"><i class="bi bi-x"></i> Tidak Ada berkas
                                         </div>
@@ -384,7 +393,7 @@
                                     <span class="he1">
                                         Bukti Follow TikTok
                                     </span>
-                                    <input type="file" name="follow_tiktok" accept="image/*">
+                                    <input type="file" name="follow_tiktok">
                                     <?php if ($follow_tiktok == '' || $follow_tiktok == null) { ?>
                                         <div class="mt-2 bg-danger p-1 text-center"><i class="bi bi-x"></i> Tidak Ada berkas
                                         </div>
@@ -403,7 +412,7 @@
                                     <span class="he1">
                                         Bukti Subscribe Youtube
                                     </span>
-                                    <input type="file" name="subscribe_youtube" accept="image/*">
+                                    <input type="file" name="subscribe_youtube">
                                     <?php if ($subscribe_youtube == '' || $subscribe_youtube == null) { ?>
                                         <div class="mt-2 bg-danger p-1 text-center"><i class="bi bi-x"></i> Tidak Ada berkas
                                         </div>
@@ -453,7 +462,7 @@
                             <div class="mx-2"></div>
 
 
-                            <!--  <?php if ($data_diri_done && $upload_berkas_done && $kuisioner_done) { ?>
+                            <?php if ($data_diri_done && $upload_berkas_done && $kuisioner_done) { ?>
                                 <button id="btn_cetak" onclick="cetakData('')"
                                     class="border-0 d-flex fw-500 cmn--btn align-items-center gap-2 mt-30 w-100">
                                     <span class="get__text">
@@ -477,7 +486,7 @@
                             <br>
                             <i class="mt-3 he1 text-secondary">"Selesaikan pengisian data, Upload berkas dan isi kuisioner
                                 sebelum mencetak
-                                data"</i> -->
+                                data"</i>
 
 
 

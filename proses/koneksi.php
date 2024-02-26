@@ -87,10 +87,12 @@ function uploadGambar($file, $url)
     }
 
     // Check file size
-    if ($file["size"] > 5000000) {
-        $pesanerror = "Sorry, your file is too large.";
+    // 15MB MAX
+    if ($file["size"] > 15000000) {
+        $pesanerror = "Maaf, file Anda terlalu besar.";
         $uploadOk = 0;
     }
+
 
     // Allow certain file formats
     $allowedFormats = ["jpg", "jpeg", "png", "gif"];

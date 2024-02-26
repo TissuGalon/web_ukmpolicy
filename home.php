@@ -665,6 +665,32 @@
                         <i class="bi bi-arrow-up-right"></i>
                     </a>
                 </div>
+                <div class="service__unique__item pb-40 pt-40" data-aos="fade-up" data-aos-duration="1800">
+                    <div class="left__service">
+                        <div class="serial__adjust">
+                            <span>
+                                06
+                            </span>
+                            <div class="cont">
+                                <h5>
+                                    Bidang
+                                </h5>
+                                <h2>
+                                    <a href="#.html">
+                                        Humas
+                                    </a>
+                                </h2>
+                            </div>
+                        </div>
+                        <p class="pra">
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                            pariatur. sunt in culpa qui officia deserunt mollit
+                        </p>
+                    </div>
+                    <a href="#.html" class="common__icon">
+                        <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>

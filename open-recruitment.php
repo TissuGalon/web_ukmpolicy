@@ -97,22 +97,7 @@
                         $upload_berkas_done = false;
                         $kuisioner_done = true;
 
-                        /* CEK KUISIONER IS FILLED */
-                        $kueri_kuisioner1 = mysqli_query($conn, "SELECT * FROM kuisioner_or WHERE active = 1");
-                        $row_kuisioner1 = mysqli_fetch_array($kueri_kuisioner1);
-                        $id_kuisioner_active = $row_kuisioner1['id'];
-                        $kueri_kuisioner2 = mysqli_query($conn, "SELECT * FROM jawaban_kuisioner_or WHERE user_id = $user_id AND kuisioner_id = $id_kuisioner_active");
-                        $row_kuisioner2 = mysqli_fetch_array($kueri_kuisioner2);
-                        $jawaban_kuisioner = json_decode($row_kuisioner2['jawaban'], true);
 
-                        $i = 0;
-                        while ($i < count($jawaban_kuisioner['jawaban'])) {
-                            if ($jawaban_kuisioner['jawaban'][$i] == '' || $jawaban_kuisioner['jawaban'][$i] == NULL) {
-                                $kuisioner_done = false;
-                            }
-                            $i++;
-                        }
-                        /* CEK KUISIONER IS FILLED */
 
 
 
@@ -136,6 +121,24 @@
                             } else {
                                 $data_diri_done = true;
                             }
+
+
+                            /* CEK KUISIONER IS FILLED */
+                            $kueri_kuisioner1 = mysqli_query($conn, "SELECT * FROM kuisioner_or WHERE active = 1");
+                            $row_kuisioner1 = mysqli_fetch_array($kueri_kuisioner1);
+                            $id_kuisioner_active = $row_kuisioner1['id'];
+                            $kueri_kuisioner2 = mysqli_query($conn, "SELECT * FROM jawaban_kuisioner_or WHERE user_id = $user_id AND kuisioner_id = $id_kuisioner_active");
+                            $row_kuisioner2 = mysqli_fetch_array($kueri_kuisioner2);
+                            $jawaban_kuisioner = json_decode($row_kuisioner2['jawaban'], true);
+
+                            $i = 0;
+                            while ($i < count($jawaban_kuisioner['jawaban'])) {
+                                if ($jawaban_kuisioner['jawaban'][$i] == '' || $jawaban_kuisioner['jawaban'][$i] == NULL) {
+                                    $kuisioner_done = false;
+                                }
+                                $i++;
+                            }
+                            /* CEK KUISIONER IS FILLED */
 
                         } else {
                             $nim = '';

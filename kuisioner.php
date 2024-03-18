@@ -1,4 +1,9 @@
 <?php include 'proses/koneksi.php'; ?>
+
+<?php if (!isset($_SESSION['id_user'])) {
+    header('location:home');
+} ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,9 +90,12 @@
 
     if ($cek_jawaban > 0) {
         $json_data_jawaban = $row2['jawaban'];
+
+        // Remove control characters
+        $json_data_jawaban = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $json_data_jawaban);
+
         $data2 = json_decode($json_data_jawaban, true);
     }
-
 
     ?>
 
@@ -116,11 +124,10 @@
 
                                     <!-- JAWABAN -->
                                     <div class="col-lg-12">
-                                        <textarea name="soal<?php echo $i + 1; ?>" id="" cols="30" rows="3" value="<?php if ($cek_jawaban > 0) {
-                                                 echo $data2['jawaban'][$i];
-                                             } ?>"><?php if ($cek_jawaban > 0) {
-                                                  echo $data2['jawaban'][$i];
-                                              } ?></textarea>
+                                        <textarea name="soal<?php echo $i + 1; ?>" id="myTextarea" cols="30" rows="3"
+                                            value=""><?php if ($cek_jawaban > 0) {
+                                                echo $data2['jawaban'][$i];
+                                            } ?></textarea>
                                     </div>
                                     <!-- JAWABAN -->
 
@@ -138,6 +145,20 @@
                                         <i class="bi bi-arrow-right fz-20"></i>
                                     </span>
                                 </button>
+
+
+
+                                <script>
+                                    document.getElementById("myTextarea").addEventListener("input", function () {
+                                        // Ambil nilai teks dari textarea
+                                        let text = this.value;
+                                        // Cari dan ganti karakter yang tidak diinginkan
+                                        text = text.replace(/"/g, ''); // Hapus karakter "
+                                        // Update nilai teks di textarea
+                                        this.value = text;
+                                    });
+                                </script>
+
 
                                 <script>
                                     function submitForm() {

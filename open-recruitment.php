@@ -127,17 +127,26 @@
                             $kueri_kuisioner1 = mysqli_query($conn, "SELECT * FROM kuisioner_or WHERE active = 1");
                             $row_kuisioner1 = mysqli_fetch_array($kueri_kuisioner1);
                             $id_kuisioner_active = $row_kuisioner1['id'];
-                            $kueri_kuisioner2 = mysqli_query($conn, "SELECT * FROM jawaban_kuisioner_or WHERE user_id = $user_id AND kuisioner_id = $id_kuisioner_active");
-                            $row_kuisioner2 = mysqli_fetch_array($kueri_kuisioner2);
-                            $jawaban_kuisioner = json_decode($row_kuisioner2['jawaban'], true);
 
-                            $i = 0;
-                            while ($i < count($jawaban_kuisioner['jawaban'])) {
-                                if ($jawaban_kuisioner['jawaban'][$i] == '' || $jawaban_kuisioner['jawaban'][$i] == NULL) {
-                                    $kuisioner_done = false;
+                            $kueri_kuisioner2 = mysqli_query($conn, "SELECT * FROM jawaban_kuisioner_or WHERE user_id = $user_id AND kuisioner_id = $id_kuisioner_active");
+                            $cek_kuisioner2 = mysqli_num_rows($kueri_kuisioner2);
+                            if ($cek_kuisioner2 > 0) {
+                                $row_kuisioner2 = mysqli_fetch_array($kueri_kuisioner2);
+                                $isi_jawaban = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $row_kuisioner2['jawaban']);
+                                $jawaban_kuisioner = json_decode($isi_jawaban, true);
+
+                                $i = 0;
+                                while ($i < count($jawaban_kuisioner['jawaban'])) {
+                                    if ($jawaban_kuisioner['jawaban'][$i] == '' || $jawaban_kuisioner['jawaban'][$i] == NULL) {
+                                        $kuisioner_done = false;
+                                    }
+                                    $i++;
                                 }
-                                $i++;
+                            } else {
+                                $kuisioner_done = false;
                             }
+
+
                             /* CEK KUISIONER IS FILLED */
 
                         } else {
@@ -150,6 +159,8 @@
                             $tempat_lahir = '';
                             $softskills = '';
                             $no_wa = '';
+
+
                         }
 
                         ?>
@@ -180,14 +191,17 @@
                                     <label for="" class="he1">Jurusan</label>
                                     <div class="col-lg-12">
                                         <select class="base" value="<?php echo $jurusan; ?>" id="jurusan" name="jurusan">
-                                            <option value="Teknik Sipil">Teknik Sipil</option>
-                                            <option value="Teknik Mesin">Teknik Mesin</option>
-                                            <option value="Teknik Kimia">Teknik Kimia</option>
-                                            <option value="Teknik Elektro">Teknik Elektro</option>
-                                            <option value="Tata Niaga">Tata Niaga</option>
-                                            <option selected="" value="Teknologi Informasi dan Komputer">Teknologi
+                                            <option selected value="<?php echo $jurusan; ?>">
+                                                <?php echo $jurusan; ?>
+                                            </option>
+                                            <option value="Teknologi Informasi dan Komputer">Teknologi
                                                 Informasi
                                                 dan Komputer</option>
+                                            <option value="Tata Niaga">Tata Niaga</option>
+                                            <option value="Teknik Elektro">Teknik Elektro</option>
+                                            <option value="Teknik Mesin">Teknik Mesin</option>
+                                            <option value="Teknik Sipil">Teknik Sipil</option>
+                                            <option value="Teknik Kimia">Teknik Kimia</option>
                                         </select>
                                     </div>
                                     <label for="" class="he1">Program Studi</label>
@@ -266,8 +280,9 @@
                         $follow_instagram = $row2['follow_instagram'];
                         $follow_tiktok = $row2['follow_tiktok'];
                         $subscribe_youtube = $row2['subscribe_youtube'];
+                        $bukti_pembayaran = $row2['bukti_pembayaran'];
 
-                        if ($pas_foto == '' || $sertifikat_pkkmb == '' || $follow_instagram == '' || $follow_tiktok == '' || $subscribe_youtube == '') {
+                        if ($pas_foto == '' || $sertifikat_pkkmb == '' || $follow_instagram == '' || $follow_tiktok == '' || $subscribe_youtube == '' || $bukti_pembayaran == '') {
                             $upload_berkas_done = false;
                         } else {
                             $upload_berkas_done = true;
@@ -279,6 +294,7 @@
                         $follow_instagram = '';
                         $follow_tiktok = '';
                         $subscribe_youtube = '';
+                        $bukti_pembayaran = '';
                     }
                     ?>
 
@@ -418,6 +434,26 @@
                                                 class="btn btn-sm btn-primary w-100 mx-2"><i class="bi bi-eye"></i> Lihat</a>
                                             <a href="#"
                                                 onclick="hapus_berkas('<?php echo $subscribe_youtube ?>', 'subscribe_youtube')"
+                                                class="btn btn-sm btn-danger w-100 mx-2"><i class="bi bi-trash"></i> Hapus</a>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                                <div class="contact__item mb-20">
+                                    <span class="he1">
+                                        Bukti Pembayaran
+                                    </span>
+                                    <input type="file" name="bukti_pembayaran" accept="image/*">
+                                    <?php if ($bukti_pembayaran == '' || $bukti_pembayaran == null) { ?>
+                                        <div class="mt-2 bg-danger p-1 text-center"><i class="bi bi-x"></i> Tidak Ada berkas
+                                        </div>
+                                    <?php } else { ?>
+                                        <div class="mt-2 bg-success p-1 text-center"><i class="bi bi-check"></i> Berkas
+                                            Tersimpan</div>
+                                        <div class="d-flex justify-content-center gap-2 mt-2">
+                                            <a href="#" onclick="view_berkas('<?php echo $bukti_pembayaran ?>')"
+                                                class="btn btn-sm btn-primary w-100 mx-2"><i class="bi bi-eye"></i> Lihat</a>
+                                            <a href="#"
+                                                onclick="hapus_berkas('<?php echo $bukti_pembayaran ?>', 'bukti_pembayaran')"
                                                 class="btn btn-sm btn-danger w-100 mx-2"><i class="bi bi-trash"></i> Hapus</a>
                                         </div>
                                     <?php } ?>

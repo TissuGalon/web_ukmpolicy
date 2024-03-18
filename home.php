@@ -117,15 +117,28 @@
                     </h1>
                 <?php } ?>
 
-                <button id="btn-or" onclick="window.location.href = 'open-recruitment';"
-                    class=" border-0 fw-500 cmn--btn  gap-2 mt-30 ">
-                    <span class="get__text text-light">
-                        DAFTAR SEKARANG
-                    </span>
-                    <span>
-                        <i class="bi bi-arrow-right fz-20 text-light"></i>
-                    </span>
-                </button>
+                <?php if (isset($_SESSION['id_user'])) { ?>
+                    <button id="btn-or" onclick="window.location.href = 'open-recruitment';"
+                        class=" border-0 fw-500 cmn--btn  gap-2 mt-30 ">
+                        <span class="get__text text-light">
+                            DAFTAR SEKARANG
+                        </span>
+                        <span>
+                            <i class="bi bi-arrow-right fz-20 text-light"></i>
+                        </span>
+                    </button>
+                <?php } else { ?>
+                    <button id="btn-or" onclick="window.location.href = 'login/register';"
+                        class=" border-0 fw-500 cmn--btn  gap-2 mt-30 ">
+                        <span class="get__text text-light">
+                            DAFTAR SEKARANG
+                        </span>
+                        <span>
+                            <i class="bi bi-arrow-right fz-20 text-light"></i>
+                        </span>
+                    </button>
+                <?php } ?>
+
 
             </div>
         </div>
@@ -202,7 +215,7 @@
             <div class="singletab">
                 <ul class="tablinks">
                     <li class="nav-links active">
-                        <a href="#visimisi" class="d-flex fw-500 cmn--btn text-dark <!-- tablink -->">MENGENAL
+                        <a href="profile" class="d-flex fw-500 cmn--btn text-dark <!-- tablink -->">MENGENAL
                             LEBIH
                             JAUH</a>
                     </li>
@@ -703,7 +716,6 @@
                 <span class="common__sub text-white" data-aos="fade-down" data-aos-duration="1000">
                     Struktural
                 </span>
-
             </div>
             <div class="row g-4 d-flex justify-content-center">
 

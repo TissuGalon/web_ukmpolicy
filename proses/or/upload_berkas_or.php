@@ -130,6 +130,28 @@ if (isset($_FILES['subscribe_youtube']) && $_FILES['subscribe_youtube']['name'] 
 /* subscribe_youtube */
 
 
+/* bukti_pembayaran */
+if (isset($_FILES['bukti_pembayaran']) && $_FILES['bukti_pembayaran']['name'] != '') {
+    $hasil = uploadGambar($_FILES['bukti_pembayaran'], $targetDirectory);
+    if ($hasil[0] == "success") {
+        $namafile = $hasil[1];
+        /* HAPUS FILE LAMA */
+        if ($roww['bukti_pembayaran'] != '' || $roww['bukti_pembayaran'] != NULL) {
+            $hapus = '' . $targetDirectory . '' . $roww['bukti_pembayaran'];
+            if (file_exists($hapus)) {
+                unlink($hapus);
+            }
+        }
+        /* HAPUS FILE LAMA */
+
+        /* UPDATE BARU */
+        $kueri_update = mysqli_query($conn, "UPDATE or_berkas SET bukti_pembayaran = '$namafile' WHERE user_id = $user_id");
+        /* UPDATE BARU */
+    }
+}
+/* bukti_pembayaran */
+
+
 header('location:../../open-recruitment');
 
 

@@ -31,80 +31,80 @@
     <script src="assets/js/config.js"></script>
 
     <style>
-        /* Cool infinite background scrolling animation.
+    /* Cool infinite background scrolling animation.
  * Twitter: @kootoopas
  */
-        /* Exo thin font from Google. */
-        @import url(https://fonts.googleapis.com/css?family=Exo:100);
+    /* Exo thin font from Google. */
+    @import url(https://fonts.googleapis.com/css?family=Exo:100);
 
-        /* Background data (Original source: https://subtlepatterns.com/grid-me/) */
-        /* Animations */
-        @-webkit-keyframes bg-scrolling-reverse {
-            100% {
-                background-position: 50px 50px;
-            }
+    /* Background data (Original source: https://subtlepatterns.com/grid-me/) */
+    /* Animations */
+    @-webkit-keyframes bg-scrolling-reverse {
+        100% {
+            background-position: 50px 50px;
         }
+    }
 
-        @-moz-keyframes bg-scrolling-reverse {
-            100% {
-                background-position: 50px 50px;
-            }
+    @-moz-keyframes bg-scrolling-reverse {
+        100% {
+            background-position: 50px 50px;
         }
+    }
 
-        @-o-keyframes bg-scrolling-reverse {
-            100% {
-                background-position: 50px 50px;
-            }
+    @-o-keyframes bg-scrolling-reverse {
+        100% {
+            background-position: 50px 50px;
         }
+    }
 
-        @keyframes bg-scrolling-reverse {
-            100% {
-                background-position: 50px 50px;
-            }
+    @keyframes bg-scrolling-reverse {
+        100% {
+            background-position: 50px 50px;
         }
+    }
 
-        @-webkit-keyframes bg-scrolling {
-            0% {
-                background-position: 50px 50px;
-            }
+    @-webkit-keyframes bg-scrolling {
+        0% {
+            background-position: 50px 50px;
         }
+    }
 
-        @-moz-keyframes bg-scrolling {
-            0% {
-                background-position: 50px 50px;
-            }
+    @-moz-keyframes bg-scrolling {
+        0% {
+            background-position: 50px 50px;
         }
+    }
 
-        @-o-keyframes bg-scrolling {
-            0% {
-                background-position: 50px 50px;
-            }
+    @-o-keyframes bg-scrolling {
+        0% {
+            background-position: 50px 50px;
         }
+    }
 
-        @keyframes bg-scrolling {
-            0% {
-                background-position: 50px 50px;
-            }
+    @keyframes bg-scrolling {
+        0% {
+            background-position: 50px 50px;
         }
+    }
 
-        /* Main styles */
-        body {
-            color: #999;
-            /* img size is 50x50 */
-            background: url("bg.png") repeat 0 0;
-            -webkit-animation: bg-scrolling-reverse 0.92s infinite;
-            /* Safari 4+ */
-            -moz-animation: bg-scrolling-reverse 0.92s infinite;
-            /* Fx 5+ */
-            -o-animation: bg-scrolling-reverse 0.92s infinite;
-            /* Opera 12+ */
-            animation: bg-scrolling-reverse 0.92s infinite;
-            /* IE 10+ */
-            -webkit-animation-timing-function: linear;
-            -moz-animation-timing-function: linear;
-            -o-animation-timing-function: linear;
-            animation-timing-function: linear;
-        }
+    /* Main styles */
+    body {
+        color: #999;
+        /* img size is 50x50 */
+        background: url("bg.png") repeat 0 0;
+        -webkit-animation: bg-scrolling-reverse 0.92s infinite;
+        /* Safari 4+ */
+        -moz-animation: bg-scrolling-reverse 0.92s infinite;
+        /* Fx 5+ */
+        -o-animation: bg-scrolling-reverse 0.92s infinite;
+        /* Opera 12+ */
+        animation: bg-scrolling-reverse 0.92s infinite;
+        /* IE 10+ */
+        -webkit-animation-timing-function: linear;
+        -moz-animation-timing-function: linear;
+        -o-animation-timing-function: linear;
+        animation-timing-function: linear;
+    }
     </style>
 
 </head>
@@ -116,24 +116,24 @@
     <?php
     if (isset($_GET['message']) && $_GET['message'] == "login_failed") { ?>
 
-        <script>
-            Swal.fire({
-                title: "Login Gagal",
-                text: "Email atau Password salah",
-                icon: "error"
-            }).then((result) => {
-                window.location.href = 'login';
-            });
-        </script>
+    <script>
+    Swal.fire({
+        title: "Login Gagal",
+        text: "Email atau Password salah",
+        icon: "error"
+    }).then((result) => {
+        window.location.href = 'login';
+    });
+    </script>
 
     <?php } elseif (isset($_GET['message']) && $_GET['message'] == "account_created") { ?>
-        <script>
-            Swal.fire({
-                title: "Berhasil",
-                text: "Akun berhasil dibuat",
-                icon: "success"
-            });
-        </script>
+    <script>
+    Swal.fire({
+        title: "Berhasil",
+        text: "Akun berhasil dibuat",
+        icon: "success"
+    });
+    </script>
     <?php } ?>
 
 
